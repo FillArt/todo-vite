@@ -1,34 +1,12 @@
-import {useState} from 'react'
 import './App.css'
+import {TodoListItem} from "./TodoListItem.tsx";
 
 function App() {
-    const [count, setCount] = useState(0)
-
     return (
         <div className="app">
-            <div>
-                <h3>What to learn</h3>
-                <div>
-                    <input/>
-                    <button>+</button>
-                </div>
-                <ul>
-                    <li>
-                        <input type="checkbox" checked={true}/> <span>HTML&CSS</span>
-                    </li>
-                    <li>
-                        <input type="checkbox" checked={true}/> <span>JS</span>
-                    </li>
-                    <li>
-                        <input type="checkbox" checked={false}/> <span>React</span>
-                    </li>
-                </ul>
-                <div>
-                    <button>All</button>
-                    <button>Active</button>
-                    <button>Completed</button>
-                </div>
-            </div>
+            <TodoListItem/>
+            <TodoListItem/>
+            <TodoListItem/>
         </div>
     )
 }
