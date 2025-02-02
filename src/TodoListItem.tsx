@@ -1,8 +1,12 @@
+import {Task} from "./App.tsx";
+
 type TodoListProps = {
-    title: string
+    title: string,
+    tasks: Task[],
+    data?: string
 }
 
-export const TodoListItem = ({title}: TodoListProps) => {
+export const TodoListItem = ({title, tasks, data}: TodoListProps) => {
     return (
         <div>
             <h3>{title}</h3>
@@ -11,21 +15,20 @@ export const TodoListItem = ({title}: TodoListProps) => {
                 <button>+</button>
             </div>
             <ul>
-                <li>
-                    <input type="checkbox" checked={true}/> <span>HTML&CSS</span>
-                </li>
-                <li>
-                    <input type="checkbox" checked={true}/> <span>JS</span>
-                </li>
-                <li>
-                    <input type="checkbox" checked={false}/> <span>React</span>
-                </li>
+                {tasks.map((task: Task) => {
+                    return (
+                        <li key={task.id}>
+                            <input type="checkbox" checked={task.isDone}/> <span>{task.title}</span>
+                        </li>
+                    )
+                })}
             </ul>
             <div>
                 <button>All</button>
                 <button>Active</button>
                 <button>Completed</button>
             </div>
+            <div>{data}</div>
         </div>
     );
 };
