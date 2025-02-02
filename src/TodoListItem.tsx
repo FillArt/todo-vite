@@ -1,14 +1,15 @@
-import {Task} from "./App.tsx";
+import {Filter, Task} from "./App.tsx";
 import {ButtonBase} from "./assets/components/ButtonBase.tsx";
 
 type TodoListProps = {
     title: string,
     tasks: Task[],
     data?: string
+    changeFilter: (filter: Filter) => void;
     deleteItem?: (id: number) => void
 }
 
-export const TodoListItem = ({title, tasks, data, deleteItem}: TodoListProps) => {
+export const TodoListItem = ({title, tasks, data, changeFilter, deleteItem}: TodoListProps) => {
     return (
         <div>
             <h3>{title}</h3>
@@ -34,9 +35,9 @@ export const TodoListItem = ({title, tasks, data, deleteItem}: TodoListProps) =>
             )}
 
             <div>
-                <ButtonBase title="All"  onClick={() => {}}/>
-                <ButtonBase title="Active"  onClick={() => {}}/>
-                <ButtonBase title="Completed"  onClick={() => {}}/>
+                <ButtonBase title="All"  onClick={() => changeFilter('all')}/>
+                <ButtonBase title="Active"  onClick={() => changeFilter('active')}/>
+                <ButtonBase title="Completed"  onClick={() => changeFilter('completed')}/>
             </div>
             <div>{data}</div>
         </div>

@@ -8,7 +8,10 @@ export type Task = {
     isDone: boolean,
 }
 
+export type Filter = 'all' | 'active' | 'completed';
+
 export const App = () => {
+    const [filter, setFilter] = useState<Filter>('all');
 
     const [oneData, setOneData] = useState<Task[]>([
         { id: 1, title: 'HTML&CSS', isDone: true },
@@ -19,16 +22,27 @@ export const App = () => {
         { id: 6, title: 'RTK query', isDone: false },
     ]);
 
+    let filteredOneData = oneData;
+
+    if (filter === 'active') {
+        filteredOneData = oneData.filter(task => !task.isDone)
+    }
+    if (filter === 'completed') {
+        filteredOneData = oneData.filter(task => task.isDone)
+    }
+
     const [twoData] = useState<Task[]>([]);
 
 
     const deleteTask = (id: number) => {setOneData(oneData.filter((item) => item.id !== id))}
-
+    const changeFilter = (filter: Filter) => {
+        setFilter(filter)
+    }
 
     return (
         <div className="app">
-            <TodoListItem title={"First To-Do"} tasks={oneData} data="01.02.2025" deleteItem={deleteTask}/>
-            <TodoListItem title={"Second To-Do"} tasks={twoData}/>
+            <TodoListItem title={"First To-Do"} tasks={filteredOneData} data="01.02.2025" deleteItem={deleteTask} changeFilter={changeFilter}/>
+            <TodoListItem title={"Second To-Do"} tasks={twoData}  changeFilter={changeFilter}/>
         </div>
     )
 }
