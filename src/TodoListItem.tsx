@@ -1,4 +1,5 @@
 import {Task} from "./App.tsx";
+import {ButtonBase} from "./assets/components/ButtonBase.tsx";
 
 type TodoListProps = {
     title: string,
@@ -12,7 +13,7 @@ export const TodoListItem = ({title, tasks, data}: TodoListProps) => {
             <h3>{title}</h3>
             <div>
                 <input/>
-                <button>+</button>
+                <ButtonBase title="+"/>
             </div>
 
             {tasks.length === 0 ? (
@@ -31,9 +32,9 @@ export const TodoListItem = ({title, tasks, data}: TodoListProps) => {
             )}
 
             <div>
-                <button>All</button>
-                <button>Active</button>
-                <button>Completed</button>
+                <ButtonBase title="All"/>
+                <ButtonBase title="Active"/>
+                <ButtonBase title="Completed"/>
             </div>
             <div>{data}</div>
         </div>
