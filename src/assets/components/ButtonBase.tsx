@@ -1,8 +1,9 @@
 
 type ButtonBaseProps = {
-    title: string
+    title: string,
+    onClick: () => void
 }
 
-export const ButtonBase = ({ title }: ButtonBaseProps) => {
-    return <button>{title}</button>;
+export const ButtonBase = ({ title, onClick }: ButtonBaseProps) => {
+    return <button onClick={onClick}>{title}</button>;
 };

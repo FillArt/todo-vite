@@ -5,15 +5,16 @@ type TodoListProps = {
     title: string,
     tasks: Task[],
     data?: string
+    deleteItem?: (id: number) => void
 }
 
-export const TodoListItem = ({title, tasks, data}: TodoListProps) => {
+export const TodoListItem = ({title, tasks, data, deleteItem}: TodoListProps) => {
     return (
         <div>
             <h3>{title}</h3>
             <div>
                 <input/>
-                <ButtonBase title="+"/>
+                <ButtonBase title="+" onClick={() => {}}/>
             </div>
 
             {tasks.length === 0 ? (
@@ -25,6 +26,7 @@ export const TodoListItem = ({title, tasks, data}: TodoListProps) => {
                             <li key={task.id}>
                                 <input type="checkbox" checked={task.isDone} />
                                 <span>{task.title}</span>
+                                <ButtonBase title="X" onClick={() => deleteItem && deleteItem(task.id)} />
                             </li>
                         )
                     })}
@@ -32,9 +34,9 @@ export const TodoListItem = ({title, tasks, data}: TodoListProps) => {
             )}
 
             <div>
-                <ButtonBase title="All"/>
-                <ButtonBase title="Active"/>
-                <ButtonBase title="Completed"/>
+                <ButtonBase title="All"  onClick={() => {}}/>
+                <ButtonBase title="Active"  onClick={() => {}}/>
+                <ButtonBase title="Completed"  onClick={() => {}}/>
             </div>
             <div>{data}</div>
         </div>
