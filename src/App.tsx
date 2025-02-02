@@ -1,36 +1,48 @@
-import {useState} from 'react'
 import './App.css'
+import {TodoListItem} from "./TodoListItem.tsx";
+import {useState} from "react";
 
-function App() {
-    const [count, setCount] = useState(0)
+export type Task = {
+    id: number,
+    title: string,
+    isDone: boolean,
+}
+
+export type Filter = 'all' | 'active' | 'completed';
+
+export const App = () => {
+    const [filter, setFilter] = useState<Filter>('all');
+
+    const [oneData, setOneData] = useState<Task[]>([
+        { id: 1, title: 'HTML&CSS', isDone: true },
+        { id: 2, title: 'JS', isDone: true },
+        { id: 3, title: 'ReactJS', isDone: false },
+        { id: 4, title: 'Redux', isDone: false },
+        { id: 5, title: 'Typescript', isDone: false },
+        { id: 6, title: 'RTK query', isDone: false },
+    ]);
+
+    let filteredOneData = oneData;
+
+    if (filter === 'active') {
+        filteredOneData = oneData.filter(task => !task.isDone)
+    }
+    if (filter === 'completed') {
+        filteredOneData = oneData.filter(task => task.isDone)
+    }
+
+    const [twoData] = useState<Task[]>([]);
+
+
+    const deleteTask = (id: number) => {setOneData(oneData.filter((item) => item.id !== id))}
+    const changeFilter = (filter: Filter) => {
+        setFilter(filter)
+    }
 
     return (
         <div className="app">
-            <div>
-                <h3>What to learn</h3>
-                <div>
-                    <input/>
-                    <button>+</button>
-                </div>
-                <ul>
-                    <li>
-                        <input type="checkbox" checked={true}/> <span>HTML&CSS</span>
-                    </li>
-                    <li>
-                        <input type="checkbox" checked={true}/> <span>JS</span>
-                    </li>
-                    <li>
-                        <input type="checkbox" checked={false}/> <span>React</span>
-                    </li>
-                </ul>
-                <div>
-                    <button>All</button>
-                    <button>Active</button>
-                    <button>Completed</button>
-                </div>
-            </div>
+            <TodoListItem title={"First To-Do"} tasks={filteredOneData} data="01.02.2025" deleteItem={deleteTask} changeFilter={changeFilter}/>
+            <TodoListItem title={"Second To-Do"} tasks={twoData}  changeFilter={changeFilter}/>
         </div>
     )
 }
-
-export default App
