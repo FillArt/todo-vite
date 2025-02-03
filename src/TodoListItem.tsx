@@ -15,6 +15,8 @@ type TodoListProps = {
 export const TodoListItem = ({title, tasks, data, changeFilter, deleteItem, createTask, changeTaskStatus}: TodoListProps) => {
 
     const [taskTitle, setTaskTitle] = useState('')
+    const [error, setError] = useState<string | null>(null)
+
 
     const changeTaskTitleHandler = (event: ChangeEvent<HTMLInputElement>) => {
         setTaskTitle(event.currentTarget.value)
@@ -25,6 +27,9 @@ export const TodoListItem = ({title, tasks, data, changeFilter, deleteItem, crea
         if(trimTitle !== '') {
             createTask(trimTitle)
             setTaskTitle('')
+            setError(null)
+        } else {
+            setError('Title is required')
         }
 
     }
@@ -45,6 +50,7 @@ export const TodoListItem = ({title, tasks, data, changeFilter, deleteItem, crea
                     value={taskTitle}
                 />
                 <ButtonBase title="+" onClick={() => onClickHandler()}/>
+                {error && <div className={'error-message'}>{error}</div>}
             </div>
 
             {tasks.length === 0 ? (
