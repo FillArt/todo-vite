@@ -47,6 +47,7 @@ export const App = () => {
                 data="01.02.2025"
                 deleteItem={deleteTask}
                 createTask={createTask}
+                filter={filter}
                 changeTaskStatus={changeTaskStatus}
                 changeFilter={changeFilter} />
         </div>
