@@ -9,9 +9,10 @@ type TodoListProps = {
     changeFilter: (filter: Filter) => void;
     deleteItem: (id: string) => void
     createTask: (task: string) => void;
+    changeTaskStatus: (id: string, status: boolean) => void
 }
 
-export const TodoListItem = ({title, tasks, data, changeFilter, deleteItem, createTask}: TodoListProps) => {
+export const TodoListItem = ({title, tasks, data, changeFilter, deleteItem, createTask, changeTaskStatus}: TodoListProps) => {
 
     const [taskTitle, setTaskTitle] = useState('')
 
@@ -20,8 +21,12 @@ export const TodoListItem = ({title, tasks, data, changeFilter, deleteItem, crea
     }
 
     const onClickHandler = () => {
-        createTask(taskTitle)
-        setTaskTitle('')
+        const trimTitle = taskTitle.trim()
+        if(trimTitle !== '') {
+            createTask(trimTitle)
+            setTaskTitle('')
+        }
+
     }
 
     const createTaskOnEnterHandler = (event: React.KeyboardEvent<HTMLInputElement>) => {
@@ -50,9 +55,14 @@ export const TodoListItem = ({title, tasks, data, changeFilter, deleteItem, crea
                         const deleteTaskHandler = () => {
                             deleteItem(task.id)
                         }
+
+                        const changeTaskStatusHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
+                            changeTaskStatus(task.id, event.currentTarget.checked)
+                        }
+
                         return (
                             <li key={task.id}>
-                                <input type="checkbox" checked={task.isDone} />
+                                <input type="checkbox" checked={task.isDone} onChange={changeTaskStatusHandler} />
                                 <span>{task.title}</span>
                                 <ButtonBase title="X" onClick={() => deleteTaskHandler()} />
                             </li>

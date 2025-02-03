@@ -35,7 +35,9 @@ export const App = () => {
     const deleteTask = (id: string) => {setOneData(oneData.filter((item) => item.id !== id))}
     const changeFilter = (filter: Filter) => {setFilter(filter)}
     const createTask = (task: string) => { setOneData([...oneData, {id: v1(), title: task, isDone: false}]) }
-
+    const changeTaskStatus = (id: string, status: boolean) => {
+        setOneData(oneData.map(task => task.id === id ? {...task, isDone: status } : task));
+    }
 
     return (
         <div className="app">
@@ -45,6 +47,7 @@ export const App = () => {
                 data="01.02.2025"
                 deleteItem={deleteTask}
                 createTask={createTask}
+                changeTaskStatus={changeTaskStatus}
                 changeFilter={changeFilter} />
         </div>
     )
