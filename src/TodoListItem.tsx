@@ -7,13 +7,13 @@ type TodoListProps = {
     todo: Todolist,
     tasks: Task[],
     data?: string
-    changeFilter: (filter: Filter) => void;
+    changeFilter: (todoId: string, filter: Filter) => void;
     deleteItem: (id: string) => void
     createTask: (task: string) => void;
     changeTaskStatus: (id: string, status: boolean) => void
 }
 
-export const TodoListItem = ({todo, tasks, data, changeFilter, deleteItem, createTask, changeTaskStatus}: TodoListProps) => {
+export const TodoListItem = ({todo: {id, title, filter}, tasks, data, changeFilter, deleteItem, createTask, changeTaskStatus}: TodoListProps) => {
 
     const [taskTitle, setTaskTitle] = useState('')
     const [error, setError] = useState<string | null>(null)
@@ -35,6 +35,8 @@ export const TodoListItem = ({todo, tasks, data, changeFilter, deleteItem, creat
 
     }
 
+    const changeFilterHandler = (filter: Filter) => { changeFilter(id, filter) }
+
     const createTaskOnEnterHandler = (event: React.KeyboardEvent<HTMLInputElement>) => {
         if (event.key === 'Enter') {
             onClickHandler()
@@ -43,7 +45,7 @@ export const TodoListItem = ({todo, tasks, data, changeFilter, deleteItem, creat
 
     return (
         <div>
-            <h3>{todo.title}</h3>
+            <h3>{title}</h3>
             <div>
                 <input
                     onChange={(e) => changeTaskTitleHandler(e)}
@@ -80,10 +82,9 @@ export const TodoListItem = ({todo, tasks, data, changeFilter, deleteItem, creat
             )}
 
             <div>
-                {todo.filter}
-                <ButtonBase className={todo.filter === 'all' ? 'active-filter' : ''} title="All"  onClick={() => changeFilter('all')}/>
-                <ButtonBase className={todo.filter === 'active' ? 'active-filter' : ''} title="Active"  onClick={() => changeFilter('active')}/>
-                <ButtonBase className={todo.filter === 'completed' ? 'active-filter' : ''} title="Completed"  onClick={() => changeFilter('completed')}/>
+                <ButtonBase className={filter === 'all' ? 'active-filter' : ''} title="All"  onClick={() => changeFilterHandler('all')}/>
+                <ButtonBase className={filter === 'active' ? 'active-filter' : ''} title="Active"  onClick={() => changeFilterHandler('active')}/>
+                <ButtonBase className={filter === 'completed' ? 'active-filter' : ''} title="Completed"  onClick={() => changeFilterHandler('completed')}/>
             </div>
             <div>{data}</div>
         </div>

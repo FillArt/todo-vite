@@ -19,9 +19,8 @@ export type Todolist = {
 
 
 export const App = () => {
-    const [filter, setFilter] = useState<Filter>('all');
 
-    const [todolists] = useState<Todolist[]>([
+    const [todolists, setTodoLists] = useState<Todolist[]>([
         { id: v1(), title: 'What to learn', filter: 'all' },
         { id: v1(), title: 'What to buy', filter: 'all' },
     ])
@@ -35,17 +34,11 @@ export const App = () => {
         { id: v1(), title: 'RTK query', isDone: false },
     ]);
 
-    let filteredOneData = oneData;
-
-    if (filter === 'active') {
-        filteredOneData = oneData.filter(task => !task.isDone)
-    }
-    if (filter === 'completed') {
-        filteredOneData = oneData.filter(task => task.isDone)
-    }
 
     const deleteTask = (id: string) => {setOneData(oneData.filter((item) => item.id !== id))}
-    const changeFilter = (filter: Filter) => {setFilter(filter)}
+    const changeFilter = (todoID: string, filter: Filter) => {
+        setTodoLists(todolists.map(item => item.id === todoID ? {...item, filter} : item))
+    }
     const createTask = (task: string) => { setOneData([...oneData, {id: v1(), title: task, isDone: false}]) }
     const changeTaskStatus = (id: string, status: boolean) => {
         setOneData(oneData.map(task => task.id === id ? {...task, isDone: status } : task));
@@ -55,11 +48,18 @@ export const App = () => {
         <div className="app">
 
             {todolists.map(todo => {
+                let filteredTasks = oneData
+                if (todo.filter === 'active') {
+                    filteredTasks = oneData.filter(task => !task.isDone)
+                }
+                if (todo.filter === 'completed') {
+                    filteredTasks = oneData.filter(task => task.isDone)
+                }
                 return (
                     <TodoListItem
                         key={todo.id}
                         todo={todo}
-                        tasks={filteredOneData}
+                        tasks={filteredTasks}
                         data="01.02.2025"
                         deleteItem={deleteTask}
                         createTask={createTask}
