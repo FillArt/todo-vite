@@ -13,6 +13,7 @@ type TodoListProps = {
     deleteTodoList: (idTodo: string) => void
     changeTaskTitle: (todoId: string, id: string, title: string) => void
     changeTaskStatus: (idTodo: string, id: string, status: boolean) => void
+    changeTodoListTitle: (idTodo: string, title: string) => void
 
     data?: string
 }
@@ -26,7 +27,8 @@ export const TodoListItem = ({
                                  createTask,
                                  changeTaskStatus,
                                  deleteTodoList,
-                                 changeTaskTitle
+                                 changeTaskTitle,
+                                 changeTodoListTitle
                              }: TodoListProps) => {
 
     const changeFilterHandler = (filter: Filter) => {
@@ -37,10 +39,14 @@ export const TodoListItem = ({
         createTask(id, title)
     }
 
+    const changeTodoListTitleHandler = (title: string) => {
+        changeTodoListTitle(id, title)
+    }
+
     return (
         <div>
             <div className={'container'}>
-                <h3>{title}</h3>
+                <EditableSpan value={title} onChange={changeTodoListTitleHandler}  />
                 <ButtonBase title={'Delete Todo List'} onClick={() => deleteTodoList(id)}/>
             </div>
 
