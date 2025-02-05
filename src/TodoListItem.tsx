@@ -4,6 +4,7 @@ import './App.css'
 import {CreateItemForm} from "./CreateItemForm.tsx";
 import {EditableSpan} from "./EditableSpan.tsx";
 import DeleteIcon from '@mui/icons-material/Delete'
+import Checkbox from "@mui/material/Checkbox";
 
 type TodoListProps = {
     todo: Todolist,
@@ -74,7 +75,7 @@ export const TodoListItem = ({
 
                         return (
                             <li key={task.id} className={task.isDone ? 'is-done' : ''}>
-                                <input type="checkbox" checked={task.isDone} onChange={changeTaskStatusHandler}/>
+                                <Checkbox checked={task.isDone} onChange={changeTaskStatusHandler} />
                                 <EditableSpan value={task.title} onChange={changeTaskTitleHandler} />
                                 <ButtonBase onClick={() => deleteTaskHandler()} color={'error'} style={'text'}>
                                     <DeleteIcon/>
