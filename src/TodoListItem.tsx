@@ -1,7 +1,7 @@
 import {Filter, Task, Todolist} from "./App.tsx";
 import {ButtonBase} from "./assets/components/ButtonBase.tsx";
-import {ChangeEvent, useState} from "react";
 import './App.css'
+import {CreateItemForm} from "./CreateItemForm.tsx";
 
 type TodoListProps = {
     todo: Todolist,
@@ -27,34 +27,12 @@ export const TodoListItem = ({
                                  deleteTodoList
                              }: TodoListProps) => {
 
-    const [taskTitle, setTaskTitle] = useState('')
-    const [error, setError] = useState<string | null>(null)
-
-
-    const changeTaskTitleHandler = (event: ChangeEvent<HTMLInputElement>) => {
-        setTaskTitle(event.currentTarget.value)
-    }
-
-    const onClickHandler = () => {
-        const trimTitle = taskTitle.trim()
-        if (trimTitle !== '') {
-            createTask(id, trimTitle)
-            setTaskTitle('')
-            setError(null)
-        } else {
-            setError('Title is required')
-        }
-
-    }
-
     const changeFilterHandler = (filter: Filter) => {
         changeFilter(id, filter)
     }
 
-    const createTaskOnEnterHandler = (event: React.KeyboardEvent<HTMLInputElement>) => {
-        if (event.key === 'Enter') {
-            onClickHandler()
-        }
+    const createTaskHandler = (title: string) => {
+        createTask(id, title)
     }
 
     return (
@@ -63,15 +41,8 @@ export const TodoListItem = ({
                 <h3>{title}</h3>
                 <ButtonBase title={'Delete Todo List'} onClick={() => deleteTodoList(id)}/>
             </div>
-            <div>
-                <input
-                    onChange={(e) => changeTaskTitleHandler(e)}
-                    onKeyDown={(e) => createTaskOnEnterHandler(e)}
-                    value={taskTitle}
-                />
-                <ButtonBase title="+" onClick={() => onClickHandler()}/>
-                {error && <div className={'error-message'}>{error}</div>}
-            </div>
+
+            <CreateItemForm onCreateItem={createTaskHandler} />
 
             {tasks.length === 0 ? (
                 <p>Тасок нет</p>
