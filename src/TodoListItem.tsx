@@ -7,6 +7,7 @@ import DeleteIcon from '@mui/icons-material/Delete'
 import Checkbox from "@mui/material/Checkbox";
 import List from '@mui/material/List'
 import ListItem from '@mui/material/ListItem'
+import Box from "@mui/material/Box";
 
 type TodoListProps = {
     todo: Todolist,
@@ -47,13 +48,13 @@ export const TodoListItem = ({
     return (
         <div>
             <div className={'container'}>
-                <EditableSpan value={title} onChange={changeTodoListTitleHandler}  />
+                <EditableSpan value={title} onChange={changeTodoListTitleHandler}/>
                 <ButtonBase onClick={() => deleteTodoList(id)} color={'error'} style={'text'}>
                     <DeleteIcon/>
                 </ButtonBase>
             </div>
 
-            <CreateItemForm onCreateItem={createTaskHandler} />
+            <CreateItemForm onCreateItem={createTaskHandler}/>
 
             {tasks.length === 0 ? (
                 <p>Тасок нет</p>
@@ -73,9 +74,14 @@ export const TodoListItem = ({
                         }
 
                         return (
-                            <ListItem key={task.id} className={task.isDone ? 'is-done' : ''}>
-                                <Checkbox checked={task.isDone} onChange={changeTaskStatusHandler} />
-                                <EditableSpan value={task.title} onChange={changeTaskTitleHandler} />
+                            <ListItem key={task.id}
+                                      sx={{p: 0, justifyContent: 'space-between', w: 100, opacity: task.isDone ? 0.5 : 1}}
+                                      className={task.isDone ? 'is-done' : ''}>
+                                <div>
+                                    <Checkbox checked={task.isDone} onChange={changeTaskStatusHandler}/>
+                                    <EditableSpan value={task.title} onChange={changeTaskTitleHandler}/>
+                                </div>
+
                                 <ButtonBase onClick={() => deleteTaskHandler()} color={'error'} style={'text'}>
                                     <DeleteIcon/>
                                 </ButtonBase>
@@ -86,14 +92,14 @@ export const TodoListItem = ({
                 </List>
             )}
 
-            <div>
+            <Box sx={{display: 'flex', justifyContent: 'space-between'}}>
                 <ButtonBase className={filter === 'all' ? 'active-filter' : ''} style={'text'} title="All"
                             onClick={() => changeFilterHandler('all')}/>
                 <ButtonBase className={filter === 'active' ? 'active-filter' : ''} style={'text'} title="Active"
                             onClick={() => changeFilterHandler('active')}/>
                 <ButtonBase className={filter === 'completed' ? 'active-filter' : ''} style={'text'} title="Completed"
                             onClick={() => changeFilterHandler('completed')}/>
-            </div>
+            </Box>
         </div>
     );
 };

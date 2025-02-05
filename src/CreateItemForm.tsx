@@ -1,5 +1,6 @@
 import {type ChangeEvent, type KeyboardEvent, useState} from 'react'
-import {ButtonBase} from "./assets/components/ButtonBase.tsx";
+import AddBoxIcon from '@mui/icons-material/AddBox'
+import IconButton from '@mui/material/IconButton'
 import TextField from "@mui/material/TextField";
 
 
@@ -33,7 +34,7 @@ export const CreateItemForm = ({onCreateItem}: Props) => {
     }
 
     return (
-        <div style={{display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
+        <div style={{display: 'flex'}}>
             <TextField
                 label="Outlined"
                 value={title}
@@ -44,7 +45,9 @@ export const CreateItemForm = ({onCreateItem}: Props) => {
                 onKeyDown={createItemOnEnterHandler} variant="outlined"/>
 
 
-            <ButtonBase title={'+'} onClick={createItemHandler}/>
+            <IconButton onClick={createItemHandler} color={'primary'}>
+                <AddBoxIcon/>
+            </IconButton>
         </div>
     )
 }

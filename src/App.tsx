@@ -13,6 +13,9 @@ import MenuIcon from '@mui/icons-material/Menu'
 import Container from '@mui/material/Container'
 import Grid from '@mui/material/Grid2'
 
+import Paper from '@mui/material/Paper'
+
+
 export type Task = {
     id: string,
     title: string,
@@ -91,7 +94,7 @@ export const App = () => {
     return (
         <div className="app">
 
-            <AppBar position="static">
+            <AppBar position="static" sx={{ mb: '30px' }}>
                 <Toolbar>
                     <Container maxWidth={'lg'}>
                         <IconButton color="inherit">
@@ -103,7 +106,7 @@ export const App = () => {
             </AppBar>
 
             <Container maxWidth={'lg'}>
-                <Grid container>
+                <Grid container sx={{ mb: '30px' }}>
                     <CreateItemForm onCreateItem={createTodoList}/>
                 </Grid>
 
@@ -118,18 +121,20 @@ export const App = () => {
                             filteredTasks = tasks[todo.id].filter(task => task.isDone)
                         }
                         return (
-                            <TodoListItem
-                                key={todo.id}
-                                todo={todo}
-                                tasks={filteredTasks}
-                                deleteItem={deleteTask}
-                                createTask={createTask}
-                                changeFilter={changeFilter}
-                                changeTaskStatus={changeTaskStatus}
-                                deleteTodoList={deleteTodoList}
-                                changeTaskTitle={changeTaskTitle}
-                                changeTodoListTitle={changeTodoListTitle}
-                            />
+                            <Paper sx={{ p: '0 20px 20px 20px' }}>
+                                <TodoListItem
+                                    key={todo.id}
+                                    todo={todo}
+                                    tasks={filteredTasks}
+                                    deleteItem={deleteTask}
+                                    createTask={createTask}
+                                    changeFilter={changeFilter}
+                                    changeTaskStatus={changeTaskStatus}
+                                    deleteTodoList={deleteTodoList}
+                                    changeTaskTitle={changeTaskTitle}
+                                    changeTodoListTitle={changeTodoListTitle}
+                                />
+                            </Paper>
                         )
                     })}
                 </Grid>
