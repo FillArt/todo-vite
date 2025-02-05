@@ -45,17 +45,20 @@ export const App = () => {
         setTasks({...tasks, [idTodo]: tasks[idTodo].filter(task => task.id !== idTask)})
     }
 
-    const changeFilter = (todoID: string, filter: Filter) => {
-        setTodoLists(todolists.map(item => item.id === todoID ? {...item, filter} : item))
-    }
-
     const createTask = (idTodo: string, task: string) => {
         setTasks({...tasks, [idTodo]: [...tasks[idTodo], {id: v1(), title: task, isDone: false}]})
     }
 
-
     const changeTaskStatus = (idTodo: string, id: string, status: boolean) => {
         setTasks({...tasks, [idTodo]: tasks[idTodo].map(item => item.id === id ? {...item, isDone: status} : item)})
+    }
+
+    const changeFilter = (todoID: string, filter: Filter) => {
+        setTodoLists(todolists.map(item => item.id === todoID ? {...item, filter} : item))
+    }
+
+    const deleteTodoList = (todoId: string) => {
+        setTodoLists(todolists.filter(todo => todo.id !== todoId))
     }
 
     return (
@@ -78,8 +81,10 @@ export const App = () => {
                         data="01.02.2025"
                         deleteItem={deleteTask}
                         createTask={createTask}
+                        changeFilter={changeFilter}
                         changeTaskStatus={changeTaskStatus}
-                        changeFilter={changeFilter} />
+                        deleteTodoList={deleteTodoList}
+                    />
                 )
             })}
         </div>
