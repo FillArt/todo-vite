@@ -6,11 +6,13 @@ import './App.css'
 type TodoListProps = {
     todo: Todolist,
     tasks: Task[],
-    data?: string
     changeFilter: (todoId: string, filter: Filter) => void;
-    deleteItem: (id: string) => void
+
+    deleteItem: (idTodo: string, idTask: string) => void
+
     createTask: (task: string) => void;
     changeTaskStatus: (id: string, status: boolean) => void
+    data?: string
 }
 
 export const TodoListItem = ({todo: {id, title, filter}, tasks, data, changeFilter, deleteItem, createTask, changeTaskStatus}: TodoListProps) => {
@@ -62,7 +64,7 @@ export const TodoListItem = ({todo: {id, title, filter}, tasks, data, changeFilt
                 <ul>
                     {tasks.map(task => {
                         const deleteTaskHandler = () => {
-                            deleteItem(task.id)
+                            deleteItem(id, task.id)
                         }
 
                         const changeTaskStatusHandler = (event: React.ChangeEvent<HTMLInputElement>) => {

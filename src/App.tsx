@@ -20,22 +20,31 @@ export type Todolist = {
 
 export const App = () => {
 
+    const todoListIdOne = v1()
+    const todoListIdTwo = v1()
+
     const [todolists, setTodoLists] = useState<Todolist[]>([
-        { id: v1(), title: 'What to learn', filter: 'all' },
-        { id: v1(), title: 'What to buy', filter: 'all' },
+        { id: todoListIdOne, title: 'What to learn', filter: 'all' },
+        { id: todoListIdTwo, title: 'What to buy', filter: 'all' },
     ])
 
-    const [oneData, setOneData] = useState<Task[]>([
-        { id: v1(), title: 'HTML&CSS', isDone: true },
-        { id: v1(), title: 'JS', isDone: true },
-        { id: v1(), title: 'ReactJS', isDone: false },
-        { id: v1(), title: 'Redux', isDone: false },
-        { id: v1(), title: 'Typescript', isDone: false },
-        { id: v1(), title: 'RTK query', isDone: false },
-    ]);
+    const [tasks, setTasks] = useState({
+        [todoListIdOne]: [
+            { id: v1(), title: 'HTML&CSS', isDone: true },
+            { id: v1(), title: 'JS', isDone: true },
+            { id: v1(), title: 'ReactJS', isDone: false },
+        ],
+        [todoListIdTwo]: [
+            { id: v1(), title: 'Rest API', isDone: true },
+            { id: v1(), title: 'GraphQL', isDone: false },
+        ],
+    })
 
 
-    const deleteTask = (id: string) => {setOneData(oneData.filter((item) => item.id !== id))}
+    const deleteTask = (idTodo: string, idTask: string) => {
+        setTasks({...tasks, [idTodo]: tasks[idTodo].filter(task => task.id !== idTask)})
+    }
+
     const changeFilter = (todoID: string, filter: Filter) => {
         setTodoLists(todolists.map(item => item.id === todoID ? {...item, filter} : item))
     }
@@ -48,12 +57,13 @@ export const App = () => {
         <div className="app">
 
             {todolists.map(todo => {
-                let filteredTasks = oneData
+                let filteredTasks = tasks[todo.id]
+
                 if (todo.filter === 'active') {
-                    filteredTasks = oneData.filter(task => !task.isDone)
+                    filteredTasks = tasks[todo.id].filter(task => !task.isDone)
                 }
                 if (todo.filter === 'completed') {
-                    filteredTasks = oneData.filter(task => task.isDone)
+                    filteredTasks = tasks[todo.id].filter(task => task.isDone)
                 }
                 return (
                     <TodoListItem
