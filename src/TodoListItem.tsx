@@ -8,10 +8,10 @@ type TodoListProps = {
     tasks: Task[],
     changeFilter: (todoId: string, filter: Filter) => void;
     deleteItem: (idTodo: string, idTask: string) => void
-
     createTask: (idTodo: string, task: string) => void;
 
-    changeTaskStatus: (id: string, status: boolean) => void
+    changeTaskStatus: (idTodo: string, id: string, status: boolean) => void
+
     data?: string
 }
 
@@ -68,7 +68,7 @@ export const TodoListItem = ({todo: {id, title, filter}, tasks, data, changeFilt
                         }
 
                         const changeTaskStatusHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
-                            changeTaskStatus(task.id, event.currentTarget.checked)
+                            changeTaskStatus(id, task.id, event.currentTarget.checked)
                         }
 
                         return (

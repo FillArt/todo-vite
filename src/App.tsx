@@ -54,8 +54,8 @@ export const App = () => {
     }
 
 
-    const changeTaskStatus = (id: string, status: boolean) => {
-        setOneData(oneData.map(task => task.id === id ? {...task, isDone: status } : task));
+    const changeTaskStatus = (idTodo: string, id: string, status: boolean) => {
+        setTasks({...tasks, [idTodo]: tasks[idTodo].map(item => item.id === id ? {...item, isDone: status} : item)})
     }
 
     return (
