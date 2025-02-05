@@ -4,6 +4,9 @@ import './App.css'
 import {CreateItemForm} from "./CreateItemForm.tsx";
 import {EditableSpan} from "./EditableSpan.tsx";
 
+import IconButton from '@mui/material/IconButton'
+import DeleteIcon from '@mui/icons-material/Delete'
+
 type TodoListProps = {
     todo: Todolist,
     tasks: Task[],
@@ -47,7 +50,9 @@ export const TodoListItem = ({
         <div>
             <div className={'container'}>
                 <EditableSpan value={title} onChange={changeTodoListTitleHandler}  />
-                <ButtonBase title={'Delete Todo List'} onClick={() => deleteTodoList(id)}/>
+                <ButtonBase onClick={() => deleteTodoList(id)} color={'error'} style={'text'}>
+                    <DeleteIcon/>
+                </ButtonBase>
             </div>
 
             <CreateItemForm onCreateItem={createTaskHandler} />
@@ -73,7 +78,9 @@ export const TodoListItem = ({
                             <li key={task.id} className={task.isDone ? 'is-done' : ''}>
                                 <input type="checkbox" checked={task.isDone} onChange={changeTaskStatusHandler}/>
                                 <EditableSpan value={task.title} onChange={changeTaskTitleHandler} />
-                                <ButtonBase title="X" onClick={() => deleteTaskHandler()}/>
+                                <ButtonBase onClick={() => deleteTaskHandler()} color={'error'} style={'text'}>
+                                    <DeleteIcon/>
+                                </ButtonBase>
 
                             </li>
                         )
@@ -82,11 +89,11 @@ export const TodoListItem = ({
             )}
 
             <div>
-                <ButtonBase className={filter === 'all' ? 'active-filter' : ''} title="All"
+                <ButtonBase className={filter === 'all' ? 'active-filter' : ''} style={'text'} title="All"
                             onClick={() => changeFilterHandler('all')}/>
-                <ButtonBase className={filter === 'active' ? 'active-filter' : ''} title="Active"
+                <ButtonBase className={filter === 'active' ? 'active-filter' : ''} style={'text'} title="Active"
                             onClick={() => changeFilterHandler('active')}/>
-                <ButtonBase className={filter === 'completed' ? 'active-filter' : ''} title="Completed"
+                <ButtonBase className={filter === 'completed' ? 'active-filter' : ''} style={'text'} title="Completed"
                             onClick={() => changeFilterHandler('completed')}/>
             </div>
             <div>{data}</div>
