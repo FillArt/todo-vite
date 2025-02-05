@@ -5,6 +5,8 @@ import {CreateItemForm} from "./CreateItemForm.tsx";
 import {EditableSpan} from "./EditableSpan.tsx";
 import DeleteIcon from '@mui/icons-material/Delete'
 import Checkbox from "@mui/material/Checkbox";
+import List from '@mui/material/List'
+import ListItem from '@mui/material/ListItem'
 
 type TodoListProps = {
     todo: Todolist,
@@ -16,8 +18,6 @@ type TodoListProps = {
     changeTaskTitle: (todoId: string, id: string, title: string) => void
     changeTaskStatus: (idTodo: string, id: string, status: boolean) => void
     changeTodoListTitle: (idTodo: string, title: string) => void
-
-    data?: string
 }
 
 export const TodoListItem = ({
@@ -59,7 +59,7 @@ export const TodoListItem = ({
             {tasks.length === 0 ? (
                 <p>Тасок нет</p>
             ) : (
-                <ul>
+                <List>
                     {tasks.map(task => {
                         const deleteTaskHandler = () => {
                             deleteItem(id, task.id)
@@ -74,17 +74,17 @@ export const TodoListItem = ({
                         }
 
                         return (
-                            <li key={task.id} className={task.isDone ? 'is-done' : ''}>
+                            <ListItem key={task.id} className={task.isDone ? 'is-done' : ''}>
                                 <Checkbox checked={task.isDone} onChange={changeTaskStatusHandler} />
                                 <EditableSpan value={task.title} onChange={changeTaskTitleHandler} />
                                 <ButtonBase onClick={() => deleteTaskHandler()} color={'error'} style={'text'}>
                                     <DeleteIcon/>
                                 </ButtonBase>
 
-                            </li>
+                            </ListItem>
                         )
                     })}
-                </ul>
+                </List>
             )}
 
             <div>
@@ -95,7 +95,6 @@ export const TodoListItem = ({
                 <ButtonBase className={filter === 'completed' ? 'active-filter' : ''} style={'text'} title="Completed"
                             onClick={() => changeFilterHandler('completed')}/>
             </div>
-            <div>{data}</div>
         </div>
     );
 };

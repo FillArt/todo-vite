@@ -98,7 +98,6 @@ export const App = () => {
                         key={todo.id}
                         todo={todo}
                         tasks={filteredTasks}
-                        data="01.02.2025"
                         deleteItem={deleteTask}
                         createTask={createTask}
                         changeFilter={changeFilter}
