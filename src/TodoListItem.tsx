@@ -23,7 +23,6 @@ type TodoListProps = {
 export const TodoListItem = ({
                                  todo: {id, title, filter},
                                  tasks,
-                                 data,
                                  changeFilter,
                                  deleteItem,
                                  createTask,

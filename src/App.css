@@ -1,12 +1,3 @@
-.app {
-  padding: 30px;
-  display: flex;
-}
-
-.app > div {
-  margin-right: 50px;
-}
-
 .error {
   border: red 1px solid;
 }
@@ -19,13 +10,18 @@
   background-color: lightgreen;
 }
 
-.is-done {
-  opacity: 0.5;
+
+.app {
+  display: flex;
+  flex-direction: column;
+  width: 100vw;
 }
 
 .container {
   display: flex;
-  gap: 10px;
-  align-content: center;
   align-items: center;
+}
+
+.is-done {
+  opacity: 0.5;
 }
