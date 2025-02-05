@@ -11,7 +11,7 @@ type TodoListProps = {
     deleteItem: (idTodo: string, idTask: string) => void
     createTask: (idTodo: string, task: string) => void;
     deleteTodoList: (idTodo: string) => void
-
+    changeTaskTitle: (todoId: string, id: string, title: string) => void
     changeTaskStatus: (idTodo: string, id: string, status: boolean) => void
 
     data?: string
@@ -25,7 +25,8 @@ export const TodoListItem = ({
                                  deleteItem,
                                  createTask,
                                  changeTaskStatus,
-                                 deleteTodoList
+                                 deleteTodoList,
+                                 changeTaskTitle
                              }: TodoListProps) => {
 
     const changeFilterHandler = (filter: Filter) => {
@@ -58,10 +59,14 @@ export const TodoListItem = ({
                             changeTaskStatus(id, task.id, event.currentTarget.checked)
                         }
 
+                        const changeTaskTitleHandler = (title: string) => {
+                            changeTaskTitle(id, task.id, title)
+                        }
+
                         return (
                             <li key={task.id} className={task.isDone ? 'is-done' : ''}>
                                 <input type="checkbox" checked={task.isDone} onChange={changeTaskStatusHandler}/>
-                                <EditableSpan value={task.title} />
+                                <EditableSpan value={task.title} onChange={changeTaskTitleHandler} />
                                 <ButtonBase title="X" onClick={() => deleteTaskHandler()}/>
 
                             </li>
