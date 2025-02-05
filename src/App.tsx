@@ -17,6 +17,7 @@ export type Todolist = {
     filter: Filter
 }
 
+export type TasksState = Record<string, Task[]>
 
 export const App = () => {
 
@@ -28,7 +29,7 @@ export const App = () => {
         { id: todoListIdTwo, title: 'What to buy', filter: 'all' },
     ])
 
-    const [tasks, setTasks] = useState({
+    const [tasks, setTasks] = useState<TasksState>({
         [todoListIdOne]: [
             { id: v1(), title: 'HTML&CSS', isDone: true },
             { id: v1(), title: 'JS', isDone: true },
@@ -59,6 +60,8 @@ export const App = () => {
 
     const deleteTodoList = (todoId: string) => {
         setTodoLists(todolists.filter(todo => todo.id !== todoId))
+        delete tasks[todoId]
+        setTasks({ ...tasks })
     }
 
     return (
