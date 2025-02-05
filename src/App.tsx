@@ -48,7 +48,12 @@ export const App = () => {
     const changeFilter = (todoID: string, filter: Filter) => {
         setTodoLists(todolists.map(item => item.id === todoID ? {...item, filter} : item))
     }
-    const createTask = (task: string) => { setOneData([...oneData, {id: v1(), title: task, isDone: false}]) }
+
+    const createTask = (idTodo: string, task: string) => {
+        setTasks({...tasks, [idTodo]: [...tasks[idTodo], {id: v1(), title: task, isDone: false}]})
+    }
+
+
     const changeTaskStatus = (id: string, status: boolean) => {
         setOneData(oneData.map(task => task.id === id ? {...task, isDone: status } : task));
     }

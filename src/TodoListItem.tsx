@@ -7,10 +7,10 @@ type TodoListProps = {
     todo: Todolist,
     tasks: Task[],
     changeFilter: (todoId: string, filter: Filter) => void;
-
     deleteItem: (idTodo: string, idTask: string) => void
 
-    createTask: (task: string) => void;
+    createTask: (idTodo: string, task: string) => void;
+
     changeTaskStatus: (id: string, status: boolean) => void
     data?: string
 }
@@ -28,7 +28,7 @@ export const TodoListItem = ({todo: {id, title, filter}, tasks, data, changeFilt
     const onClickHandler = () => {
         const trimTitle = taskTitle.trim()
         if(trimTitle !== '') {
-            createTask(trimTitle)
+            createTask(id, trimTitle)
             setTaskTitle('')
             setError(null)
         } else {
