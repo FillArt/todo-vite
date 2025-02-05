@@ -11,45 +11,85 @@ export type Task = {
 
 export type Filter = 'all' | 'active' | 'completed';
 
+export type Todolist = {
+    id: string
+    title: string
+    filter: Filter
+}
+
+export type TasksState = Record<string, Task[]>
+
 export const App = () => {
-    const [filter, setFilter] = useState<Filter>('all');
 
-    const [oneData, setOneData] = useState<Task[]>([
-        { id: v1(), title: 'HTML&CSS', isDone: true },
-        { id: v1(), title: 'JS', isDone: true },
-        { id: v1(), title: 'ReactJS', isDone: false },
-        { id: v1(), title: 'Redux', isDone: false },
-        { id: v1(), title: 'Typescript', isDone: false },
-        { id: v1(), title: 'RTK query', isDone: false },
-    ]);
+    const todoListIdOne = v1()
+    const todoListIdTwo = v1()
 
-    let filteredOneData = oneData;
+    const [todolists, setTodoLists] = useState<Todolist[]>([
+        { id: todoListIdOne, title: 'What to learn', filter: 'all' },
+        { id: todoListIdTwo, title: 'What to buy', filter: 'all' },
+    ])
 
-    if (filter === 'active') {
-        filteredOneData = oneData.filter(task => !task.isDone)
+    const [tasks, setTasks] = useState<TasksState>({
+        [todoListIdOne]: [
+            { id: v1(), title: 'HTML&CSS', isDone: true },
+            { id: v1(), title: 'JS', isDone: true },
+            { id: v1(), title: 'ReactJS', isDone: false },
+        ],
+        [todoListIdTwo]: [
+            { id: v1(), title: 'Rest API', isDone: true },
+            { id: v1(), title: 'GraphQL', isDone: false },
+        ],
+    })
+
+
+    const deleteTask = (idTodo: string, idTask: string) => {
+        setTasks({...tasks, [idTodo]: tasks[idTodo].filter(task => task.id !== idTask)})
     }
-    if (filter === 'completed') {
-        filteredOneData = oneData.filter(task => task.isDone)
+
+    const createTask = (idTodo: string, task: string) => {
+        setTasks({...tasks, [idTodo]: [...tasks[idTodo], {id: v1(), title: task, isDone: false}]})
     }
 
-    const deleteTask = (id: string) => {setOneData(oneData.filter((item) => item.id !== id))}
-    const changeFilter = (filter: Filter) => {setFilter(filter)}
-    const createTask = (task: string) => { setOneData([...oneData, {id: v1(), title: task, isDone: false}]) }
-    const changeTaskStatus = (id: string, status: boolean) => {
-        setOneData(oneData.map(task => task.id === id ? {...task, isDone: status } : task));
+    const changeTaskStatus = (idTodo: string, id: string, status: boolean) => {
+        setTasks({...tasks, [idTodo]: tasks[idTodo].map(item => item.id === id ? {...item, isDone: status} : item)})
+    }
+
+    const changeFilter = (todoID: string, filter: Filter) => {
+        setTodoLists(todolists.map(item => item.id === todoID ? {...item, filter} : item))
+    }
+
+    const deleteTodoList = (todoId: string) => {
+        setTodoLists(todolists.filter(todo => todo.id !== todoId))
+        delete tasks[todoId]
+        setTasks({ ...tasks })
     }
 
     return (
         <div className="app">
-            <TodoListItem
-                title={"First To-Do"}
-                tasks={filteredOneData}
-                data="01.02.2025"
-                deleteItem={deleteTask}
-                createTask={createTask}
-                filter={filter}
-                changeTaskStatus={changeTaskStatus}
-                changeFilter={changeFilter} />
+
+            {todolists.map(todo => {
+                let filteredTasks = tasks[todo.id]
+
+                if (todo.filter === 'active') {
+                    filteredTasks = tasks[todo.id].filter(task => !task.isDone)
+                }
+                if (todo.filter === 'completed') {
+                    filteredTasks = tasks[todo.id].filter(task => task.isDone)
+                }
+                return (
+                    <TodoListItem
+                        key={todo.id}
+                        todo={todo}
+                        tasks={filteredTasks}
+                        data="01.02.2025"
+                        deleteItem={deleteTask}
+                        createTask={createTask}
+                        changeFilter={changeFilter}
+                        changeTaskStatus={changeTaskStatus}
+                        deleteTodoList={deleteTodoList}
+                    />
+                )
+            })}
         </div>
     )
 }
