@@ -12,7 +12,7 @@ type ButtonBaseProps = {
 
 export const ButtonBase = ({ title, onClick, children, style = 'contained', color = 'primary'}: ButtonBaseProps) => {
     return (
-        <Button color={color} variant={style} onClick={onClick}>
+        <Button color={color} variant={style} onClick={onClick} size={'small'}>
             {title ? title : null}
             {children ? children : null}
         </Button>

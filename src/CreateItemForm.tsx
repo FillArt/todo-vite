@@ -33,7 +33,7 @@ export const CreateItemForm = ({onCreateItem}: Props) => {
     }
 
     return (
-        <div style={{display: 'flex', flexDirection: 'row'}}>
+        <div style={{display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
             <TextField
                 label="Outlined"
                 value={title}
