@@ -4,12 +4,23 @@ const initialState: TasksState = {}
 
 export const tasksReducer = (state: TasksState = initialState, action: Actions): TasksState => {
     switch (action.type) {
-        case '': {
-            return state
+        case 'create_todolist': {
+            return {...state, [action.payload.id]: []}
         }
         default:
             return state
     }
 }
 
-type Actions = any
+export const createTodoListAC = (todoId: string) => {
+    return {
+        type: 'create_todolist',
+        payload: {
+            id: todoId
+        }
+    } as const
+}
+
+export type createTodoListAction = ReturnType<typeof createTodoListAC>
+
+type Actions = createTodoListAction
