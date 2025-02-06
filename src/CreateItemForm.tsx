@@ -1,12 +1,14 @@
 import {type ChangeEvent, type KeyboardEvent, useState} from 'react'
-import {ButtonBase} from "./assets/components/ButtonBase.tsx";
+import AddBoxIcon from '@mui/icons-material/AddBox'
+import IconButton from '@mui/material/IconButton'
+import TextField from "@mui/material/TextField";
 
 
 type Props = {
     onCreateItem: (title: string) => void
 }
 
-export const CreateItemForm = ({ onCreateItem }: Props) => {
+export const CreateItemForm = ({onCreateItem}: Props) => {
     const [title, setTitle] = useState('')
     const [error, setError] = useState<string | null>(null)
 
@@ -32,13 +34,20 @@ export const CreateItemForm = ({ onCreateItem }: Props) => {
     }
 
     return (
-        <div>
-            <input className={error ? 'error' : ''}
-                   value={title}
-                   onChange={changeItemTitleHandler}
-                   onKeyDown={createItemOnEnterHandler}/>
-            <ButtonBase title={'+'} onClick={createItemHandler} />
-            {error && <div className={'error-message'}>{error}</div>}
+        <div style={{display: 'flex'}}>
+            <TextField
+                label="Outlined"
+                value={title}
+                size={'small'}
+                error={!!error}
+                helperText={error}
+                onChange={changeItemTitleHandler}
+                onKeyDown={createItemOnEnterHandler} variant="outlined"/>
+
+
+            <IconButton onClick={createItemHandler} color={'primary'}>
+                <AddBoxIcon/>
+            </IconButton>
         </div>
     )
 }
