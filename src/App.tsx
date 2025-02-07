@@ -24,7 +24,14 @@ import {
     deleteTodolistAC,
     todolistReducer
 } from "./model/todolists-reducer.ts";
-import {createTaskAC, createTodoListAC, deleteTaskAC, tasksReducer} from "./model/tasks-reducer.ts";
+import {
+    changeTaskStatusAC,
+    createTaskAC,
+    createTodoListAC,
+    deleteTaskAC,
+    deleteTodoListAC,
+    tasksReducer
+} from "./model/tasks-reducer.ts";
 
 
 export type Task = {
@@ -51,16 +58,14 @@ export const App = () => {
 
     const deleteTask = (idTodo: string, idTask: string) => {
         dispatchTasks(deleteTaskAC({todolistId: idTodo, taskId: idTask}))
-        // setTasks({...tasks, [idTodo]: tasks[idTodo].filter(task => task.id !== idTask)})
     }
 
     const createTask = (idTodo: string, task: string) => {
-        // setTasks({...tasks, [idTodo]: [...tasks[idTodo], {id: v1(), title: task, isDone: false}]})
         dispatchTasks(createTaskAC({todolistId: idTodo, title: task}))
     }
 
     const changeTaskStatus = (idTodo: string, id: string, status: boolean) => {
-        // setTasks({...tasks, [idTodo]: tasks[idTodo].map(item => item.id === id ? {...item, isDone: status} : item)})
+        dispatchTasks(changeTaskStatusAC({todolistId: idTodo, taskId: id, isDone: status}))
     }
 
     const changeTaskTitle = (todoId: string, id: string, title: string) => {
@@ -73,18 +78,14 @@ export const App = () => {
 
     const deleteTodoList = (todoId: string) => {
         dispatchToTodolists(deleteTodolistAC(todoId))
-        // delete tasks[todoId]
-        // setTasks({...tasks})
+        dispatchTasks(deleteTodoListAC(todoId))
     }
 
     const createTodoList = (title: string) => {
         const id = v1()
         dispatchToTodolists(createTodolistAC(id, title))
         dispatchTasks(createTodoListAC(id))
-        // setTasks({...tasks, [id]: []})
     }
-
-
 
     const changeTodoListTitle = (todoId: string, title: string) => {
         dispatchToTodolists(changeTodolistTitleAC({ id: todoId, title }));
