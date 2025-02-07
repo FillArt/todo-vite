@@ -1,6 +1,6 @@
 import './App.css'
 import {TodoListItem} from "./TodoListItem.tsx";
-import {useReducer, useState} from "react";
+import {useReducer} from "react";
 import {v1} from "uuid";
 import {CreateItemForm} from "./CreateItemForm.tsx";
 
@@ -19,13 +19,15 @@ import {NavButton} from "./NavButton.ts";
 
 import {createTheme, ThemeProvider} from '@mui/material/styles'
 import {
-    changeTodolistFilterAC, changeTodolistTitleAC,
+    changeTodolistFilterAC,
+    changeTodolistTitleAC,
     createTodolistAC,
     deleteTodolistAC,
     todolistReducer
 } from "./model/todolists-reducer.ts";
 import {
     changeTaskStatusAC,
+    changeTaskTitleAC,
     createTaskAC,
     createTodoListAC,
     deleteTaskAC,
@@ -69,7 +71,7 @@ export const App = () => {
     }
 
     const changeTaskTitle = (todoId: string, id: string, title: string) => {
-        // setTasks({...tasks, [todoId]: tasks[todoId].map(task => task.id === id ? {...task, title} : task)})
+        dispatchTasks(changeTaskTitleAC({todolistId: todoId, taskId: id, title}))
     }
 
     const changeFilter = (todoID: string, filter: Filter) => {
