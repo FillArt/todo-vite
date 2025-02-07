@@ -1,6 +1,6 @@
-import {Filter, Task, Todolist} from "./App.tsx";
+import {Filter, Task, Todolist} from "./app/App.tsx";
 import {ButtonBase} from "./assets/components/ButtonBase.tsx";
-import './App.css'
+import './app/App.css'
 import {CreateItemForm} from "./CreateItemForm.tsx";
 import {EditableSpan} from "./EditableSpan.tsx";
 import DeleteIcon from '@mui/icons-material/Delete'
