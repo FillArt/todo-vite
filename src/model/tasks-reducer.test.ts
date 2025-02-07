@@ -21,7 +21,7 @@ beforeEach(() => {
 })
 
 test('array should be created for new todolist', () => {
-    const endState = tasksReducer(startState, createTodolistAC('New todolist'))
+    const endState = tasksReducer(startState, createTodolistAC('testId','New todolist'))
 
     const keys = Object.keys(endState)
     const newKey = keys.find(k => k !== 'todolistId1' && k !== 'todolistId2')
