@@ -26,8 +26,8 @@ export const deleteTodolistAC = (id: string) => {
     return {type: 'delete_todolist', payload: { id }} as const
 }
 
-export const createTodolistAC = (title: string) => {
-    return {type: 'create_todolist', payload: { id: v1(), title }} as const
+export const createTodolistAC = (id: string, title: string) => {
+    return {type: 'create_todolist', payload: { id: id, title }} as const
 }
 
 export const changeTodolistTitleAC = (payload: {id: string, title: string}) => {
