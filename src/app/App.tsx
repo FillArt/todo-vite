@@ -24,8 +24,6 @@ import {
     deleteTodolistAC
 } from "../model/todolists-reducer.ts";
 import {changeTaskStatusAC, changeTaskTitleAC, createTaskAC, deleteTaskAC} from "../model/tasks-reducer.ts";
-import {useSelector} from 'react-redux';
-import {RootState} from "./store.ts";
 import {useAppDispatch} from "../common/hooks/useAppDispatch.ts";
 import {useAppSelector} from "../common/hooks/useAppSelector.ts";
 import {selectTasks} from "../model/tasks-selectors.ts";
@@ -76,7 +74,8 @@ export const App = () => {
     }
 
     const deleteTodoList = (todoId: string) => {
-        dispatch(deleteTodolistAC(todoId))
+        dispatch(deleteTodolistAC({id: todoId}))
+
     }
 
     const createTodoList = (title: string) => {
