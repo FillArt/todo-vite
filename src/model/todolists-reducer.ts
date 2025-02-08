@@ -1,5 +1,4 @@
-import {Filter, Todolist} from "../App.tsx";
-import {v1} from "uuid";
+import {Filter, Todolist} from "../app/App.tsx";
 
 const initialState: Todolist[] = []
 
