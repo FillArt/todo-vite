@@ -35,7 +35,8 @@ import {
 } from "../model/todolists-reducer-RTK.ts";
 
 import {changeStatusTaskAC, changeTitleTaskAC, createTaskAC, deleteTaskAC} from "../model/tasks-reducer-RTK.ts";
-import {useState} from "react";
+import {selectThemeMode} from "../model/app-selectors.ts";
+import {changeThemeModeAC} from "./app-reducer.ts";
 
 
 export type Task = {
@@ -53,7 +54,6 @@ export type Todolist = {
 }
 
 export type TasksState = Record<string, Task[]>
-type ThemeMode = 'dark' | 'light'
 
 
 export const App = () => {
@@ -62,7 +62,9 @@ export const App = () => {
     const tasks = useAppSelector(selectTasks)
     const dispatch = useAppDispatch()
 
-    const [themeMode, setThemeMode] = useState<ThemeMode>('light')
+    const themeMode = useAppSelector(selectThemeMode)
+
+    // const [themeMode, setThemeMode] = useState<ThemeMode>('light')
 
 
     const createTodoList = (title: string) => {
@@ -109,7 +111,7 @@ export const App = () => {
     })
 
     const changeMode = () => {
-        setThemeMode(themeMode === 'light' ? 'dark' : 'light')
+        dispatch(changeThemeModeAC({themeMode: themeMode === 'light' ? 'dark' : 'light'}))
     }
 
     return (
