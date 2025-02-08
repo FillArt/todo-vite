@@ -16,7 +16,7 @@ import Paper from '@mui/material/Paper'
 import {containerSx} from "../TodolistItem.styles.ts";
 import {NavButton} from "../NavButton.ts";
 
-import {createTheme, ThemeProvider} from '@mui/material/styles'
+import {ThemeProvider} from '@mui/material/styles'
 
 import {useAppDispatch} from "../common/hooks/useAppDispatch.ts";
 import {useAppSelector} from "../common/hooks/useAppSelector.ts";
@@ -37,6 +37,7 @@ import {
 import {changeStatusTaskAC, changeTitleTaskAC, createTaskAC, deleteTaskAC} from "../model/tasks-reducer-RTK.ts";
 import {selectThemeMode} from "../model/app-selectors.ts";
 import {changeThemeModeAC} from "./app-reducer.ts";
+import {getTheme} from "../common/theme/theme.ts";
 
 
 export type Task = {
@@ -63,6 +64,7 @@ export const App = () => {
     const dispatch = useAppDispatch()
 
     const themeMode = useAppSelector(selectThemeMode)
+    const theme = getTheme(themeMode)
 
     // const [themeMode, setThemeMode] = useState<ThemeMode>('light')
 
@@ -101,14 +103,6 @@ export const App = () => {
 
     // ------------
 
-    const theme = createTheme({
-        palette: {
-            mode: themeMode,
-            primary: {
-                main: '#ef6c00',
-            },
-        },
-    })
 
     const changeMode = () => {
         dispatch(changeThemeModeAC({themeMode: themeMode === 'light' ? 'dark' : 'light'}))
