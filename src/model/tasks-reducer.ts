@@ -8,11 +8,11 @@ export const tasksReducer = (state: TasksState = initialState, action: Actions):
         case 'create_todolist': {
             return {...state, [action.payload.id]: []}
         }
-        // case 'delete_todolist': {
-        //     const newState = {...state}
-        //     delete newState[action.payload.id]
-        //     return newState
-        // }
+        case 'delete_todolist': {
+            const newState = {...state}
+            delete newState[action.payload.id]
+            return newState
+        }
 
         case 'delete_task': {
             return {
@@ -66,14 +66,14 @@ export const createTodoListAC = (todoId: string) => {
     } as const
 }
 
-// export const deleteTodoListAC = (todoId: string) => {
-//     return {
-//         type: 'delete_todolist',
-//         payload: {
-//             id: todoId
-//         }
-//     } as const
-// }
+export const deleteTodoListAC = (todoId: string) => {
+    return {
+        type: 'delete_todolist',
+        payload: {
+            id: todoId
+        }
+    } as const
+}
 
 export const deleteTaskAC = (payload: { todolistId: string, taskId: string }) => {
     return {
@@ -118,7 +118,7 @@ export const changeTaskTitleAC = (payload: { todolistId: string, taskId: string,
 }
 
 export type createTodoListAction = ReturnType<typeof createTodoListAC>
-// export type deleteTodoListAction = ReturnType<typeof deleteTodoListAC>
+export type deleteTodoListAction = ReturnType<typeof deleteTodoListAC>
 export type deleteTaskAction = ReturnType<typeof deleteTaskAC>
 export type createTaskAction = ReturnType<typeof createTaskAC>
 export type changeTaskStatusAction = ReturnType<typeof changeTaskStatusAC>
@@ -126,7 +126,7 @@ export type changeTaskTitleAction = ReturnType<typeof changeTaskTitleAC>
 
 type Actions =
     createTodoListAction
-    // | deleteTodoListAction
+    | deleteTodoListAction
     | deleteTaskAction
     | createTaskAction
     | changeTaskStatusAction

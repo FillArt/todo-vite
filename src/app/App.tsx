@@ -1,6 +1,6 @@
 import './App.css'
 import {TodoListItem} from "../TodoListItem.tsx";
-import {v1} from "uuid";
+// import {v1} from "uuid";
 import {CreateItemForm} from "../CreateItemForm.tsx";
 
 import AppBar from '@mui/material/AppBar'
@@ -28,6 +28,7 @@ import {useAppDispatch} from "../common/hooks/useAppDispatch.ts";
 import {useAppSelector} from "../common/hooks/useAppSelector.ts";
 import {selectTasks} from "../model/tasks-selectors.ts";
 import {selectTodolists} from "../model/todolists-selectors.ts";
+import {nanoid} from "@reduxjs/toolkit";
 
 
 export type Task = {
@@ -74,12 +75,12 @@ export const App = () => {
     }
 
     const deleteTodoList = (todoId: string) => {
-        dispatch(deleteTodolistAC({id: todoId}))
+        dispatch(deleteTodolistAC(todoId))
 
     }
 
     const createTodoList = (title: string) => {
-        const id = v1()
+        const id = nanoid()
         dispatch(createTodolistAC(id, title))
     }
 
