@@ -1,13 +1,13 @@
 import {beforeEach, expect, test} from 'vitest'
 import type {TasksState} from '../app/App.tsx'
 import {
+    changeStatusTaskAC,
+    changeTitleTaskAC,
+    createTaskAC,
     createTodolistAC,
-    tasksReducer,
     deleteTaskAC,
     deleteTodoListAC,
-    createTaskAC,
-    changeStatusTaskAC,
-    changeTitleTaskAC
+    tasksReducer
 } from "./tasks-reducer-RTK.ts";
 
 let startState: TasksState = {}

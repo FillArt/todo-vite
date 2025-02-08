@@ -10,7 +10,6 @@ export const createTodolistAC = createAction('todolists/createTodolist', (title:
 export const changeTodolistTitleAC = createAction<{id: string, title: string}>('todolists/changeTodolistTitle')
 export const changeTodolistFilterAC = createAction<{id: string, filter: Filter}>('todolists/changeTodolistFilter')
 
-
 export const todoReducer = createReducer(initialState, (builder) => {
     builder
         .addCase(deleteTodolistAC, (state, action) => {

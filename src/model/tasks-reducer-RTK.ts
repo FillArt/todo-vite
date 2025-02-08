@@ -41,8 +41,9 @@ export const tasksReducer = createReducer(initialState, (builder) => {
 
         .addCase(changeStatusTaskAC, (state, action) => {
             const {idTodo, idTask, isDone} = action.payload
-            if(state[idTodo]) {
-                state[idTodo].filter(task => task.id === idTask ? {...task, isDone} : task)
+            const task = state[idTodo].find(task => task.id === idTask)
+            if(task) {
+                task.isDone = isDone
             }
         })
 

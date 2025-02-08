@@ -67,6 +67,7 @@ export const TodoListItem = ({
                         }
 
                         const changeTaskStatusHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
+                            console.log(event.currentTarget.checked)
                             changeTaskStatus(id, task.id, event.currentTarget.checked)
                         }
 
