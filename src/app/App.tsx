@@ -24,6 +24,9 @@ import {useAppSelector} from "../common/hooks/useAppSelector.ts";
 import {selectTasks} from "../model/tasks-selectors.ts";
 import {selectTodolists} from "../model/todolists-selectors.ts";
 
+import Switch from '@mui/material/Switch'
+import CssBaseline from '@mui/material/CssBaseline'
+
 import {
     changeTodolistFilterAC,
     changeTodolistTitleAC,
@@ -32,6 +35,7 @@ import {
 } from "../model/todolists-reducer-RTK.ts";
 
 import {changeStatusTaskAC, changeTitleTaskAC, createTaskAC, deleteTaskAC} from "../model/tasks-reducer-RTK.ts";
+import {useState} from "react";
 
 
 export type Task = {
@@ -49,12 +53,17 @@ export type Todolist = {
 }
 
 export type TasksState = Record<string, Task[]>
+type ThemeMode = 'dark' | 'light'
+
 
 export const App = () => {
 
     const todolists = useAppSelector(selectTodolists)
     const tasks = useAppSelector(selectTasks)
     const dispatch = useAppDispatch()
+
+    const [themeMode, setThemeMode] = useState<ThemeMode>('light')
+
 
     const createTodoList = (title: string) => {
         dispatch(createTodolistAC(title))
@@ -90,19 +99,23 @@ export const App = () => {
 
     // ------------
 
-
-
     const theme = createTheme({
         palette: {
+            mode: themeMode,
             primary: {
                 main: '#ef6c00',
             },
         },
     })
 
+    const changeMode = () => {
+        setThemeMode(themeMode === 'light' ? 'dark' : 'light')
+    }
+
     return (
         <div className="app">
             <ThemeProvider theme={theme}>
+                <CssBaseline />
                 <AppBar position="static" sx={{mb: '30px'}}>
                     <Toolbar>
                         <Container maxWidth={'lg'} sx={containerSx}>
@@ -113,6 +126,7 @@ export const App = () => {
                                 <NavButton>Sign in</NavButton>
                                 <NavButton>Sign up</NavButton>
                                 <NavButton background={theme.palette.primary.dark}>Faq</NavButton>
+                                <Switch color={'default'} onChange={changeMode} />
                             </div>
                         </Container>
                     </Toolbar>
