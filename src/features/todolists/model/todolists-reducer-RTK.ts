@@ -1,5 +1,5 @@
 import {createAction, createReducer, nanoid} from "@reduxjs/toolkit";
-import {Filter, Todolist} from "../app/App.tsx";
+import {Filter, Todolist} from "../../../app/App.tsx";
 
 const initialState: Todolist[] = []
 

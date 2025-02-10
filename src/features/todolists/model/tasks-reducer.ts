@@ -1,4 +1,4 @@
-import type {TasksState} from '../app/App.tsx'
+import type {TasksState} from '../../../app/App.tsx'
 import {nanoid} from "@reduxjs/toolkit";
 
 const initialState: TasksState = {}

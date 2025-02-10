@@ -1,5 +1,5 @@
 import {createAction, createReducer, nanoid} from "@reduxjs/toolkit";
-import {TasksState} from "../app/App.tsx";
+import {TasksState} from "../../../app/App.tsx";
 
 const initialState: TasksState = {}
 

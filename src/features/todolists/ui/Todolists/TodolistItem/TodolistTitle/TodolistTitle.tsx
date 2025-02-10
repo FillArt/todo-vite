@@ -1,8 +1,9 @@
-import {EditableSpan} from "@/EditableSpan.tsx";
+import {EditableSpan} from "@/common/components/EditableSpan/EditableSpan.tsx";
 import {ButtonBase} from "@/assets/components/ButtonBase.tsx";
 import DeleteIcon from "@mui/icons-material/Delete";
-import {changeTodolistTitleAC, deleteTodolistAC} from "@/model/todolists-reducer-RTK.ts";
+import {changeTodolistTitleAC, deleteTodolistAC} from "@/features/todolists/model/todolists-reducer-RTK.ts";
 import {useAppDispatch} from "@/common/hooks/useAppDispatch.ts";
+
 
 type Props = {
     id: string,
@@ -23,7 +24,8 @@ export const TodolistTitle = ({id, title}: Props) => {
 
 
     return (
-        <div className={'container'}>
+        <div style={{display: 'flex',
+            justifyContent: 'space-between',}}>
             <EditableSpan value={title} onChange={changeTodoListTitle}/>
             <ButtonBase onClick={() => deleteTodoList(id)} color={'error'} style={'text'}>
                 <DeleteIcon/>

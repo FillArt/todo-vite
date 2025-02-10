@@ -1,12 +1,13 @@
-import {getListItemSx} from "@/TodolistItem.styles.ts";
+// import {getListItemSx} from "@/features/todolists/ui/Todolists/TodolistItem/TodolistItem.styles.ts";
 import Checkbox from "@mui/material/Checkbox";
-import {EditableSpan} from "@/EditableSpan.tsx";
+import {EditableSpan} from "@/common/components/EditableSpan/EditableSpan.tsx";
 import {ButtonBase} from "@/assets/components/ButtonBase.tsx";
 import DeleteIcon from "@mui/icons-material/Delete";
 import ListItem from "@mui/material/ListItem";
 import {Task} from "@/app/App.tsx"
-import {changeStatusTaskAC, changeTitleTaskAC, deleteTaskAC} from "@/model/tasks-reducer-RTK.ts";
+import {changeStatusTaskAC, changeTitleTaskAC, deleteTaskAC} from "@/features/todolists/model/tasks-reducer-RTK.ts";
 import {useAppDispatch} from "@/common/hooks/useAppDispatch.ts";
+import {getListItemSx} from "@/TodolistItem.styles.ts";
 
 
 type Props = {
