@@ -5,6 +5,9 @@ import path from 'path';
 export default defineConfig({
   base: "/todo-vite/",
   plugins: [react()],
+  server: {
+    port: 3000
+  },
   resolve: {
     alias: {
       '@/': `${path.resolve(__dirname, 'src')}/`,
