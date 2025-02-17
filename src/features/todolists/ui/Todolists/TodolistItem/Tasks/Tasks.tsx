@@ -1,24 +1,32 @@
 import List from "@mui/material/List"
-import { useAppSelector } from "@/common/hooks/useAppSelector.ts"
-import { selectTasks } from "@/features/todolists/model/tasks-selectors.ts"
-import { Filter } from "@/app/App.tsx"
 import { TaskItem } from "@/features/todolists/ui/Todolists/TodolistItem/Tasks/TaskItem/TaskItem.tsx"
+import { useEffect, useState } from "react"
+import { tasksApi } from "@/features/todolists/api/tasksApi.ts"
 
 type Props = {
   id: string
-  filter: Filter
 }
 
-export const Tasks = ({ id, filter }: Props) => {
-  const tasks = useAppSelector(selectTasks)[id]
+export const Tasks = ({ id }: Props) => {
+  // const tasks = useAppSelector(selectTasks)[id]
+  const [tasks, setTasks] = useState([])
+
+  useEffect(() => {
+    tasksApi.getTasks(id).then((res) => {
+      setTasks(res.data.items)
+    })
+  }, [])
+
   let filteredTasks = tasks
 
-  if (filter === "active") {
-    filteredTasks = tasks.filter((i) => !i.isDone)
-  }
-  if (filter === "completed") {
-    filteredTasks = tasks.filter((i) => i.isDone)
-  }
+  console.log(tasks)
+
+  // if (filter === "active") {
+  //   filteredTasks = tasks.filter((i) => !i.isDone)
+  // }
+  // if (filter === "completed") {
+  //   filteredTasks = tasks.filter((i) => i.isDone)
+  // }
 
   return (
     <>

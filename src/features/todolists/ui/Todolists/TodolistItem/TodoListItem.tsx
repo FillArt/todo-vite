@@ -7,6 +7,7 @@ import { TodolistTitle } from "@/features/todolists/ui/Todolists/TodolistItem/To
 // import {Tasks} from "@/features/todolists/ui/Todolists/TodolistItem/Tasks/Tasks.tsx";
 // import {FilterButtons} from "@/features/todolists/ui/Todolists/TodolistItem/FilterButtons/FilterButtons.tsx";
 import { TodoListApi } from "@/features/todolists/api/todolistsApi.types.ts"
+import { Tasks } from "@/features/todolists/ui/Todolists/TodolistItem/Tasks/Tasks.tsx"
 
 type TodoListProps = {
   todo: TodoListApi
@@ -23,7 +24,7 @@ export const TodoListItem = ({ todo: { id, title } }: TodoListProps) => {
     <div>
       <TodolistTitle id={id} title={title} />
       <CreateItemForm onCreateItem={createTask} />
-      {/*<Tasks id={id} filter={filter} />*/}
+      <Tasks id={id} />
       {/*<FilterButtons id={id} filter={filter} />*/}
     </div>
   )
