@@ -10,8 +10,12 @@ import { todolistsApi } from "@/features/todolists/api/todolistsApi.ts"
 
 export const Main = () => {
   const dispatch = useAppDispatch()
-  const createTodoList = (title: string) => {
+
+  const createTodoList = async (title: string) => {
     dispatch(createTodolistAC(title))
+    await todolistsApi.createTodoList(title)
+    const getTodoLists = await todolistsApi.getTodolists()
+    setTodolists(getTodoLists.data)
   }
 
   const [todolists, setTodolists] = useState<TodoListApi[]>([])
@@ -19,8 +23,6 @@ export const Main = () => {
   useEffect(() => {
     todolistsApi.getTodolists().then((res) => setTodolists(res.data))
   }, [])
-
-  console.log(todolists)
 
   return (
     <Container maxWidth={"lg"}>

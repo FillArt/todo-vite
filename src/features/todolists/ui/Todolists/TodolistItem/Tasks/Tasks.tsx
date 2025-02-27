@@ -34,8 +34,8 @@ export const Tasks = ({ id }: Props) => {
         <p>Тасок нет</p>
       ) : (
         <List>
-          {filteredTasks.map((task) => {
-            return <TaskItem id={id} task={task} />
+          {filteredTasks.map((task, index) => {
+            return <TaskItem key={index} id={id} task={task} />
           })}
         </List>
       )}

@@ -2,7 +2,6 @@ import { type ChangeEvent, type KeyboardEvent, useState } from "react"
 import AddBoxIcon from "@mui/icons-material/AddBox"
 import IconButton from "@mui/material/IconButton"
 import TextField from "@mui/material/TextField"
-import { todolistsApi } from "@/features/todolists/api/todolistsApi.ts"
 
 type Props = {
   onCreateItem: (title: string) => void
@@ -12,15 +11,11 @@ export const CreateItemForm = ({ onCreateItem }: Props) => {
   const [title, setTitle] = useState("")
   const [error, setError] = useState<string | null>(null)
 
-  const createTodoListsApi = (title: string) => {
-    todolistsApi.createTodoList(title).then((r) => console.log(r.data))
-  }
-
   const createItemHandler = () => {
     const trimmedTitle = title.trim()
     if (trimmedTitle !== "") {
       onCreateItem(trimmedTitle)
-      createTodoListsApi(trimmedTitle)
+      // createTodoListsApi(trimmedTitle)
 
       setTitle("")
     } else {
