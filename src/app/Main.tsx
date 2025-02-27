@@ -24,6 +24,12 @@ export const Main = () => {
     setTodolists(getTodoLists.data)
   }
 
+  const changeTodoTitle = async (idTodo: string, title: string) => {
+    await todolistsApi.changeTodolistTitle(idTodo, title)
+    const getTodoLists = await todolistsApi.getTodolists()
+    setTodolists(getTodoLists.data)
+  }
+
   const [todolists, setTodolists] = useState<TodoListApi[]>([])
 
   useEffect(() => {
@@ -37,7 +43,7 @@ export const Main = () => {
       </Grid>
 
       <Grid container spacing={4}>
-        <Todolists todolists={todolists} deleteTodo={deleteTodoList} />
+        <Todolists todolists={todolists} deleteTodo={deleteTodoList} changeTodoTitle={changeTodoTitle} />
       </Grid>
     </Container>
   )

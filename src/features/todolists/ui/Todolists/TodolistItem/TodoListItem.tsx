@@ -13,9 +13,10 @@ type TodoListProps = {
   todo: TodoListApi
 
   deleteTodo: (idTodo: string) => void
+  changeTodoTitle: (idTodo: string, title: string) => void
 }
 
-export const TodoListItem = ({ todo: { id, title }, deleteTodo }: TodoListProps) => {
+export const TodoListItem = ({ todo: { id, title }, deleteTodo, changeTodoTitle }: TodoListProps) => {
   const dispatch = useAppDispatch()
 
   const createTask = (title: string) => {
@@ -24,7 +25,7 @@ export const TodoListItem = ({ todo: { id, title }, deleteTodo }: TodoListProps)
 
   return (
     <div>
-      <TodolistTitle id={id} title={title} deleteTodo={deleteTodo} />
+      <TodolistTitle id={id} title={title} deleteTodo={deleteTodo} changeTodoTitle={changeTodoTitle} />
       <CreateItemForm onCreateItem={createTask} />
       <Tasks id={id} />
       {/*<FilterButtons id={id} filter={filter} />*/}

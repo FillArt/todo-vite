@@ -8,9 +8,10 @@ type TodolistProps = {
   todolists: TodoListApi[]
 
   deleteTodo: (idTodo: string) => void
+  changeTodoTitle: (idTodo: string, title: string) => void
 }
 
-export const Todolists = ({ todolists, deleteTodo }: TodolistProps) => {
+export const Todolists = ({ todolists, deleteTodo, changeTodoTitle }: TodolistProps) => {
   // const todolist = useAppSelector(selectTodolists);
 
   return (
@@ -18,7 +19,7 @@ export const Todolists = ({ todolists, deleteTodo }: TodolistProps) => {
       {todolists.map((todo) => {
         return (
           <Paper key={todo.id} sx={{ p: "0 20px 20px 20px" }}>
-            <TodoListItem todo={todo} deleteTodo={deleteTodo} />
+            <TodoListItem todo={todo} deleteTodo={deleteTodo} changeTodoTitle={changeTodoTitle} />
           </Paper>
         )
       })}
