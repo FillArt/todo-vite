@@ -11,9 +11,11 @@ import { Tasks } from "@/features/todolists/ui/Todolists/TodolistItem/Tasks/Task
 
 type TodoListProps = {
   todo: TodoListApi
+
+  deleteTodo: (idTodo: string) => void
 }
 
-export const TodoListItem = ({ todo: { id, title } }: TodoListProps) => {
+export const TodoListItem = ({ todo: { id, title }, deleteTodo }: TodoListProps) => {
   const dispatch = useAppDispatch()
 
   const createTask = (title: string) => {
@@ -22,7 +24,7 @@ export const TodoListItem = ({ todo: { id, title } }: TodoListProps) => {
 
   return (
     <div>
-      <TodolistTitle id={id} title={title} />
+      <TodolistTitle id={id} title={title} deleteTodo={deleteTodo} />
       <CreateItemForm onCreateItem={createTask} />
       <Tasks id={id} />
       {/*<FilterButtons id={id} filter={filter} />*/}

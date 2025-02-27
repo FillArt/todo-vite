@@ -6,9 +6,11 @@ import { TodoListApi } from "@/features/todolists/api/todolistsApi.types.ts"
 
 type TodolistProps = {
   todolists: TodoListApi[]
+
+  deleteTodo: (idTodo: string) => void
 }
 
-export const Todolists = ({ todolists }: TodolistProps) => {
+export const Todolists = ({ todolists, deleteTodo }: TodolistProps) => {
   // const todolist = useAppSelector(selectTodolists);
 
   return (
@@ -16,7 +18,7 @@ export const Todolists = ({ todolists }: TodolistProps) => {
       {todolists.map((todo) => {
         return (
           <Paper key={todo.id} sx={{ p: "0 20px 20px 20px" }}>
-            <TodoListItem todo={todo} />
+            <TodoListItem todo={todo} deleteTodo={deleteTodo} />
           </Paper>
         )
       })}

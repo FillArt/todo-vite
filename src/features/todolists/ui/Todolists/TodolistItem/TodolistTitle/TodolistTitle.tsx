@@ -9,14 +9,16 @@ import { todolistsApi } from "@/features/todolists/api/todolistsApi.ts"
 type Props = {
   id: string
   title: string
+
+  deleteTodo: (idTodo: string) => void
 }
 
-export const TodolistTitle = ({ id, title }: Props) => {
+export const TodolistTitle = ({ id, title, deleteTodo }: Props) => {
   const dispatch = useAppDispatch()
 
-  const deleteTodoListsApi = (id: string) => {
-    todolistsApi.deleteTodoLists(id).then((r) => console.log(r.data))
-  }
+  // const deleteTodoListsApi = (id: string) => {
+  //   todolistsApi.deleteTodoLists(id).then((r) => console.log(r.data))
+  // }
 
   const changeTodolistTitleApi = (id: string, title: string) => {
     todolistsApi.changeTodolistTitle(id, title).then((res) => console.log(res.data))
@@ -29,7 +31,7 @@ export const TodolistTitle = ({ id, title }: Props) => {
 
   const deleteTodoList = (todoId: string) => {
     dispatch(deleteTodolistAC({ id: todoId }))
-    deleteTodoListsApi(todoId)
+    deleteTodo(todoId)
   }
 
   return (
