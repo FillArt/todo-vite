@@ -8,6 +8,9 @@ import { TodolistTitle } from "@/features/todolists/ui/Todolists/TodolistItem/To
 // import {FilterButtons} from "@/features/todolists/ui/Todolists/TodolistItem/FilterButtons/FilterButtons.tsx";
 import { TodoListApi } from "@/features/todolists/api/todolistsApi.types.ts"
 import { Tasks } from "@/features/todolists/ui/Todolists/TodolistItem/Tasks/Tasks.tsx"
+import { tasksApi } from "@/features/todolists/api/tasksApi.ts"
+import { useEffect, useState } from "react"
+import { BaseTask } from "@/features/todolists/api/tasksApi.types.ts"
 
 type TodoListProps = {
   todo: TodoListApi
@@ -18,10 +21,19 @@ type TodoListProps = {
 
 export const TodoListItem = ({ todo: { id, title }, deleteTodo, changeTodoTitle }: TodoListProps) => {
   const dispatch = useAppDispatch()
+  const [tasks, setTasks] = useState<BaseTask[]>([])
 
-  const createTask = (title: string) => {
+  const createTask = async (title: string) => {
     dispatch(createTaskAC({ idTodo: id, title }))
+    await tasksApi.createTask(id, title)
+    const response = await tasksApi.getTasks(id)
+    console.log(response.data.items, "HEEEEELOOOO")
+    setTasks(response.data.items)
   }
+
+  useEffect(() => {
+    console.log(tasks, "TASKS - массив")
+  }, [tasks])
 
   return (
     <div>

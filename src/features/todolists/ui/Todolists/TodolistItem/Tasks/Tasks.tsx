@@ -19,7 +19,7 @@ export const Tasks = ({ id }: Props) => {
 
   let filteredTasks = tasks
 
-  console.log(tasks)
+  console.log(tasks, "test")
 
   // if (filter === "active") {
   //   filteredTasks = tasks.filter((i) => !i.isDone)

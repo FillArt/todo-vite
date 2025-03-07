@@ -18,7 +18,7 @@ export const Todolists = ({ todolists, deleteTodo, changeTodoTitle }: TodolistPr
     <>
       {todolists.map((todo) => {
         return (
-          <Paper key={todo.id} sx={{ p: "0 20px 20px 20px" }}>
+          <Paper key={todo.id} sx={{ p: "20px 20px 20px 20px" }}>
             <TodoListItem todo={todo} deleteTodo={deleteTodo} changeTodoTitle={changeTodoTitle} />
           </Paper>
         )
