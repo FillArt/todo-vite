@@ -1,5 +1,5 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit"
-import { tasksReducer } from "@/features/todolists/model/tasks-reducer-RTK"
+import { tasksReducer } from "@/features/todolists/model/tasks-slice.ts"
 import { todoReducer } from "@/features/todolists/model/todolists-slice.ts"
 
 // объединение reducer'ов с помощью combineReducers

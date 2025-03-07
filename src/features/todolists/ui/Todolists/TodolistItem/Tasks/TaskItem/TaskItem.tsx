@@ -5,7 +5,7 @@ import { ButtonBase } from "@/assets/components/ButtonBase.tsx"
 import DeleteIcon from "@mui/icons-material/Delete"
 import ListItem from "@mui/material/ListItem"
 import { Task } from "@/app/App.tsx"
-import { changeStatusTaskAC, changeTitleTaskAC, deleteTaskAC } from "@/features/todolists/model/tasks-reducer-RTK.ts"
+import { changeStatusTaskAC, changeTitleTaskAC, deleteTaskAC } from "@/features/todolists/model/tasks-slice.ts"
 import { useAppDispatch } from "@/common/hooks/useAppDispatch.ts"
 import { getListItemSx } from "@/TodolistItem.styles.ts"
 

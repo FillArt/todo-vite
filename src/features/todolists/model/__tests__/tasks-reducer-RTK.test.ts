@@ -8,7 +8,7 @@ import {
   deleteTaskAC,
   deleteTodoListAC,
   tasksReducer,
-} from "../tasks-reducer-RTK.ts"
+} from "../tasks-slice.ts"
 
 let startState: TasksState = {}
 
