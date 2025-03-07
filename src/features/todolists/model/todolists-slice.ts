@@ -1,9 +1,14 @@
-import { createSlice, nanoid } from "@reduxjs/toolkit"
-import { Filter, Todolist } from "@/app/App.tsx"
+import { createSlice, current, nanoid } from "@reduxjs/toolkit"
+import { Filter } from "@/app/App.tsx"
+import { TodoListApi } from "@/features/todolists/api/todolistsApi.types.ts"
+
+export type DomainTodolist = TodoListApi & {
+  filter: Filter
+}
 
 export const todolistsSlice = createSlice({
   name: "todolists",
-  initialState: [] as Todolist[],
+  initialState: [] as DomainTodolist[],
   selectors: {
     selectTodolists: (state) => state,
   },
@@ -12,6 +17,7 @@ export const todolistsSlice = createSlice({
       (title: string) => ({ payload: { id: nanoid(), title, addedDate: "", order: 0 } }),
       (state, action) => {
         state.push({ ...action.payload, filter: "all" })
+        console.log(current(state))
       },
     ),
     deleteTodolistAC: create.reducer<{ id: string }>((state, action) => {

@@ -3,20 +3,18 @@ import AddBoxIcon from "@mui/icons-material/AddBox"
 import IconButton from "@mui/material/IconButton"
 import TextField from "@mui/material/TextField"
 
-type Props = {
-  onCreateItem: (title: string) => void
+type CreateItemFormProps = {
+  onCreate: (title: string) => void
 }
 
-export const CreateItemForm = ({ onCreateItem }: Props) => {
+export const CreateItemForm = ({ onCreate }: CreateItemFormProps) => {
   const [title, setTitle] = useState("")
   const [error, setError] = useState<string | null>(null)
 
   const createItemHandler = () => {
     const trimmedTitle = title.trim()
     if (trimmedTitle !== "") {
-      onCreateItem(trimmedTitle)
-      // createTodoListsApi(trimmedTitle)
-
+      onCreate(trimmedTitle)
       setTitle("")
     } else {
       setError("Title is required")

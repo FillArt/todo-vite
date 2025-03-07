@@ -1,4 +1,3 @@
-// import {getListItemSx} from "@/features/todolists/ui/Todolists/TodolistItem/TodolistItem.styles.ts";
 import Checkbox from "@mui/material/Checkbox"
 import { EditableSpan } from "@/common/components/EditableSpan/EditableSpan.tsx"
 import { ButtonBase } from "@/assets/components/ButtonBase.tsx"
@@ -18,15 +17,15 @@ export const TaskItem = ({ id, task }: Props) => {
   const dispatch = useAppDispatch()
 
   const deleteTask = () => {
-    dispatch(deleteTaskAC({ idTodo: id, idTask: task.id }))
+    dispatch(deleteTaskAC({ todoId: id, taskId: task.id }))
   }
 
   const changeTaskStatus = (event: React.ChangeEvent<HTMLInputElement>) => {
-    dispatch(changeStatusTaskAC({ idTodo: id, idTask: task.id, isDone: event.currentTarget.checked }))
+    dispatch(changeStatusTaskAC({ todoId: id, taskId: task.id, isDone: event.currentTarget.checked }))
   }
 
   const changeTaskTitle = (title: string) => {
-    dispatch(changeTitleTaskAC({ idTodo: id, idTask: task.id, title }))
+    dispatch(changeTitleTaskAC({ todoId: id, taskId: task.id, title }))
   }
 
   return (
