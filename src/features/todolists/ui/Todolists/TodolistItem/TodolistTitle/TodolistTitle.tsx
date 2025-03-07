@@ -1,7 +1,7 @@
 import { EditableSpan } from "@/common/components/EditableSpan/EditableSpan.tsx"
 import { ButtonBase } from "@/assets/components/ButtonBase.tsx"
 import DeleteIcon from "@mui/icons-material/Delete"
-import { changeTodolistTitleAC, deleteTodolistAC } from "@/features/todolists/model/todolists-reducer-RTK.ts"
+import { changeTodolistTitleAC, deleteTodolistAC } from "@/features/todolists/model/todolists-slice.ts"
 import { useAppDispatch } from "@/common/hooks/useAppDispatch.ts"
 // import {CreateTodolistResponse} from "@/features/todolists/api/todolistsApi.types.ts";
 
