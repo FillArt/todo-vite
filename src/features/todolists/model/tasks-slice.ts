@@ -1,6 +1,7 @@
-import { createSlice, nanoid } from "@reduxjs/toolkit"
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
 import { TasksState } from "@/app/App.tsx"
 import { createTodolistsTC, deleteTodolistsTC } from "@/features/todolists/model/todolists-slice.ts"
+import { tasksApi } from "@/features/todolists/api/tasksApi.ts"
 
 export const tasksSlice = createSlice({
   name: "tasks",
@@ -16,19 +17,22 @@ export const tasksSlice = createSlice({
       .addCase(deleteTodolistsTC.fulfilled, (state, action) => {
         delete state[action.payload.id]
       })
+      .addCase(createTaskTC.fulfilled, (state, action) => {
+        // console.log(action.payload.data.item)
+      })
   },
   reducers: (create) => ({
-    createTaskAC: create.preparedReducer(
-      (todoId: string, title: string) => ({
-        payload: {
-          newTask: { id: nanoid(), title, isDone: false },
-          todoId,
-        },
-      }),
-      (state, action) => {
-        state[action.payload.todoId].unshift(action.payload.newTask)
-      },
-    ),
+    // createTaskAC: create.preparedReducer(
+    //   (todoId: string, title: string) => ({
+    //     payload: {
+    //       newTask: { id: nanoid(), title, isDone: false },
+    //       todoId,
+    //     },
+    //   }),
+    //   (state, action) => {
+    //     state[action.payload.todoId].unshift(action.payload.newTask)
+    //   },
+    // ),
     deleteTaskAC: create.reducer<{ todoId: string; taskId: string }>((state, action) => {
       if (state[action.payload.todoId]) {
         state[action.payload.todoId] = state[action.payload.todoId].filter((item) => item.id !== action.payload.taskId)
@@ -53,6 +57,18 @@ export const tasksSlice = createSlice({
   }),
 })
 
+export const createTaskTC = createAsyncThunk(
+  `${tasksSlice.name}/createTaskTC`,
+  async (payload: { todoId: string; title: string }, thunkAPI) => {
+    try {
+      const res = await tasksApi.createTask(payload.todoId, payload.title)
+      return res.data
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error)
+    }
+  },
+)
+
 export const taskReducer = tasksSlice.reducer
-export const { createTaskAC, deleteTaskAC, changeStatusTaskAC, changeTitleTaskAC } = tasksSlice.actions
+export const { deleteTaskAC, changeStatusTaskAC, changeTitleTaskAC } = tasksSlice.actions
 export const { selectTasks } = tasksSlice.selectors
