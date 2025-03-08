@@ -6,6 +6,7 @@ import { selectTodolists } from "@/features/todolists/model/todolists-slice.ts"
 export const Todolists = () => {
   const todolists = useAppSelector(selectTodolists)
 
+  console.log(todolists, "Lol")
   return (
     <>
       {todolists.map((todo) => {
