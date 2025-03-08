@@ -31,14 +31,14 @@ export const todolistsSlice = createSlice({
           state.splice(index, 1)
         }
       })
+      .addCase(changeTodolistTitleTC.fulfilled, (state, action) => {
+        const todo = state.find((item) => item.id === action.payload.id)
+        if (todo) {
+          todo.title = action.payload.title
+        }
+      })
   },
   reducers: (create) => ({
-    changeTodolistTitleAC: create.reducer<{ id: string; title: string }>((state, action) => {
-      const todo = state.find((item) => item.id === action.payload.id)
-      if (todo) {
-        todo.title = action.payload.title
-      }
-    }),
     changeTodolistFilterAC: create.reducer<{ id: string; filter: Filter }>((state, action) => {
       const todo = state.find((item) => item.id === action.payload.id)
       if (todo) {
@@ -81,6 +81,18 @@ export const deleteTodolistsTC = createAsyncThunk(
   },
 )
 
-export const { changeTodolistFilterAC, changeTodolistTitleAC } = todolistsSlice.actions
+export const changeTodolistTitleTC = createAsyncThunk(
+  `${todolistsSlice.name}/changeTodolistTitle`,
+  async (payload: { id: string; title: string }, thunkAPI) => {
+    try {
+      await todolistsApi.changeTodolistTitle(payload.id, payload.title)
+      return payload
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error)
+    }
+  },
+)
+
+export const { changeTodolistFilterAC } = todolistsSlice.actions
 export const { selectTodolists } = todolistsSlice.selectors
 export const todolistsReducer = todolistsSlice.reducer
