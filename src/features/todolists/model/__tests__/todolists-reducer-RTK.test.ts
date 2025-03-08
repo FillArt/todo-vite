@@ -1,9 +1,9 @@
 import { beforeEach, expect, test } from "vitest"
 import type { Todolist } from "../../../../app/App.tsx"
-import { changeTodolistFilterAC, deleteTodolistAC, todoReducer } from "../todolists-reducer-RTK.ts"
+import { changeTodolistFilterAC, deleteTodolistAC, todoReducer } from "../todolists-slice.ts"
 import { nanoid } from "@reduxjs/toolkit"
-import { createTodolistAC } from "../todolists-reducer-RTK.ts"
-import { changeTodolistTitleAC } from "../todolists-reducer-RTK.ts"
+import { createTodolistAC } from "../todolists-slice.ts"
+import { changeTodolistTitleAC } from "../todolists-slice.ts"
 
 let todolistId1: string
 let todolistId2: string

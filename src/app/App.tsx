@@ -18,12 +18,6 @@ export type Task = {
 
 export type Filter = "all" | "active" | "completed"
 
-export type Todolist = {
-  id: string
-  title: string
-  filter: Filter
-}
-
 export type TasksState = Record<string, Task[]>
 
 export const App = () => {

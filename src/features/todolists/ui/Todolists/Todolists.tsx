@@ -1,25 +1,18 @@
 import { TodoListItem } from "@/features/todolists/ui/Todolists/TodolistItem/TodoListItem.tsx"
 import Paper from "@mui/material/Paper"
-// import {useAppSelector} from "@/common/hooks/useAppSelector.ts";
-// import {selectTodolists} from "@/features/todolists/model/todolists-selectors.ts";
-import { TodoListApi } from "@/features/todolists/api/todolistsApi.types.ts"
+import { useAppSelector } from "@/common/hooks"
+import { selectTodolists } from "@/features/todolists/model/todolists-slice.ts"
 
-type TodolistProps = {
-  todolists: TodoListApi[]
+export const Todolists = () => {
+  const todolists = useAppSelector(selectTodolists)
 
-  deleteTodo: (idTodo: string) => void
-  changeTodoTitle: (idTodo: string, title: string) => void
-}
-
-export const Todolists = ({ todolists, deleteTodo, changeTodoTitle }: TodolistProps) => {
-  // const todolist = useAppSelector(selectTodolists);
-
+  console.log(todolists, "Lol")
   return (
     <>
       {todolists.map((todo) => {
         return (
-          <Paper key={todo.id} sx={{ p: "0 20px 20px 20px" }}>
-            <TodoListItem todo={todo} deleteTodo={deleteTodo} changeTodoTitle={changeTodoTitle} />
+          <Paper key={todo.id} sx={{ p: "20px 20px 20px 20px" }}>
+            <TodoListItem todo={todo} />
           </Paper>
         )
       })}

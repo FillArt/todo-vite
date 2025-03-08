@@ -1,26 +1,16 @@
 import List from "@mui/material/List"
 import { TaskItem } from "@/features/todolists/ui/Todolists/TodolistItem/Tasks/TaskItem/TaskItem.tsx"
-import { useEffect, useState } from "react"
-import { tasksApi } from "@/features/todolists/api/tasksApi.ts"
+import { useAppSelector } from "@/common/hooks"
+import { selectTasks } from "@/features/todolists/model/tasks-slice.ts"
 
 type Props = {
   id: string
 }
 
 export const Tasks = ({ id }: Props) => {
-  // const tasks = useAppSelector(selectTasks)[id]
-  const [tasks, setTasks] = useState([])
-
-  useEffect(() => {
-    tasksApi.getTasks(id).then((res) => {
-      setTasks(res.data.items)
-    })
-  }, [])
-
+  const tasks = useAppSelector(selectTasks)[id]
+  // const [filter, setFilter] = useState("all")
   let filteredTasks = tasks
-
-  console.log(tasks)
-
   // if (filter === "active") {
   //   filteredTasks = tasks.filter((i) => !i.isDone)
   // }
@@ -30,11 +20,11 @@ export const Tasks = ({ id }: Props) => {
 
   return (
     <>
-      {filteredTasks.length === 0 ? (
+      {filteredTasks?.length === 0 ? (
         <p>Тасок нет</p>
       ) : (
         <List>
-          {filteredTasks.map((task, index) => {
+          {filteredTasks?.map((task, index) => {
             return <TaskItem key={index} id={id} task={task} />
           })}
         </List>
