@@ -16,13 +16,6 @@ export const todolistsSlice = createAppSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(fetchTodolistsTC.fulfilled, (state, action) => {
-        action.payload?.todolists.forEach((tl) => {
-          if (!state.some((t) => t.id === tl.id)) {
-            state.push({ ...tl, filter: "all" })
-          }
-        })
-      })
       .addCase(createTodolistsTC.fulfilled, (state, action) => {
         state.push({ ...action.payload.data.item, filter: "all" })
       })
@@ -40,6 +33,31 @@ export const todolistsSlice = createAppSlice({
       })
   },
   reducers: (create) => ({
+    fetchTodolistsTC: create.asyncThunk(
+      async (_, thunkAPI) => {
+        try {
+          const res = await todolistsApi.getTodolists()
+          console.log("FETCH TODO LISTS TC")
+          return { todolists: res.data }
+        } catch (error) {
+          return thunkAPI.rejectWithValue(null)
+        }
+      },
+      {
+        fulfilled: (state, action) => {
+          if (state.length) {
+            state = []
+            action.payload?.todolists.forEach((tl) => {
+              state.push({ ...tl, filter: "all" })
+            })
+          } else {
+            action.payload?.todolists.forEach((tl) => {
+              state.push({ ...tl, filter: "all" })
+            })
+          }
+        },
+      },
+    ),
     changeTodolistFilterAC: create.reducer<{ id: string; filter: Filter }>((state, action) => {
       const todo = state.find((item) => item.id === action.payload.id)
       if (todo) {
@@ -47,15 +65,6 @@ export const todolistsSlice = createAppSlice({
       }
     }),
   }),
-})
-
-export const fetchTodolistsTC = createAsyncThunk(`${todolistsSlice.name}/fetchTodolistsTC`, async (_, thunkAPI) => {
-  try {
-    const res = await todolistsApi.getTodolists()
-    return { todolists: res.data }
-  } catch (error) {
-    return thunkAPI.rejectWithValue(error)
-  }
 })
 
 export const createTodolistsTC = createAsyncThunk(
@@ -94,6 +103,6 @@ export const changeTodolistTitleTC = createAsyncThunk(
   },
 )
 
-export const { changeTodolistFilterAC } = todolistsSlice.actions
+export const { changeTodolistFilterAC, fetchTodolistsTC } = todolistsSlice.actions
 export const { selectTodolists } = todolistsSlice.selectors
 export const todolistsReducer = todolistsSlice.reducer
