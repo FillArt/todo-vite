@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
+import { createAsyncThunk } from "@reduxjs/toolkit"
 import { TasksState } from "@/app/App.tsx"
 import { createTodolistsTC, deleteTodolistsTC } from "@/features/todolists/model/todolists-slice.ts"
 import { tasksApi } from "@/features/todolists/api/tasksApi.ts"
@@ -38,6 +38,21 @@ export const tasksSlice = createAppSlice({
         },
       },
     ),
+    createTaskTC: create.asyncThunk(
+      async (payload: { todolistId: string; title: string }, thunkAPI) => {
+        try {
+          const res = await tasksApi.createTask(payload)
+          return { task: res.data.data.item }
+        } catch (error) {
+          return thunkAPI.rejectWithValue(null)
+        }
+      },
+      {
+        fulfilled: (state, action) => {
+          state[action.payload.task.todoListId].unshift(action.payload.task)
+        },
+      },
+    ),
     // createTaskAC: create.preparedReducer(
     //   (todoId: string, title: string) => ({
     //     payload: {
@@ -73,18 +88,18 @@ export const tasksSlice = createAppSlice({
   }),
 })
 
-export const createTaskTC = createAsyncThunk(
-  `${tasksSlice.name}/createTaskTC`,
-  async (payload: { todoId: string; title: string }, thunkAPI) => {
-    try {
-      const res = await tasksApi.createTask(payload.todoId, payload.title)
-      return res.data
-    } catch (error) {
-      return thunkAPI.rejectWithValue(error)
-    }
-  },
-)
+// export const createTaskTC = createAsyncThunk(
+//   `${tasksSlice.name}/createTaskTC`,
+//   async (payload: { todoId: string; title: string }, thunkAPI) => {
+//     try {
+//       const res = await tasksApi.createTask(payload.todoId, payload.title)
+//       return res.data
+//     } catch (error) {
+//       return thunkAPI.rejectWithValue(error)
+//     }
+//   },
+// )
 
 export const taskReducer = tasksSlice.reducer
-export const { deleteTaskAC, changeStatusTaskAC, changeTitleTaskAC, fetchTasksTC } = tasksSlice.actions
+export const { deleteTaskAC, changeStatusTaskAC, changeTitleTaskAC, fetchTasksTC, createTaskTC } = tasksSlice.actions
 export const { selectTasks } = tasksSlice.selectors
