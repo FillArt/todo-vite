@@ -4,7 +4,7 @@ import { ButtonBase } from "@/assets/components/ButtonBase.tsx"
 import DeleteIcon from "@mui/icons-material/Delete"
 import ListItem from "@mui/material/ListItem"
 import { Task } from "@/app/App.tsx"
-import { changeStatusTaskAC, changeTitleTaskAC, deleteTaskAC } from "@/features/todolists/model/tasks-slice.ts"
+import { changeStatusTaskAC, changeTitleTaskAC, deleteTaskTC } from "@/features/todolists/model/tasks-slice.ts"
 import { useAppDispatch } from "@/common/hooks/useAppDispatch.ts"
 import { getListItemSx } from "@/TodolistItem.styles.ts"
 
@@ -17,7 +17,7 @@ export const TaskItem = ({ id, task }: Props) => {
   const dispatch = useAppDispatch()
 
   const deleteTask = () => {
-    dispatch(deleteTaskAC({ todoId: id, taskId: task.id }))
+    dispatch(deleteTaskTC({ todolistId: id, taskId: task.id }))
   }
 
   const changeTaskStatus = (event: React.ChangeEvent<HTMLInputElement>) => {
