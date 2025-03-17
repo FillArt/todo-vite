@@ -13,12 +13,13 @@ type TodoListProps = {
 
 export const TodoListItem = ({ todo: { id, title } }: TodoListProps) => {
   const dispatch = useAppDispatch()
-  const createTaskHandler = (title: string) => dispatch(createTaskTC({ todoId: id, title }))
-
+  const createTask = (title: string) => {
+    dispatch(createTaskTC({ todolistId: id, title }))
+  }
   return (
     <div>
       <TodolistTitle id={id} title={title} />
-      <CreateItemForm onCreate={createTaskHandler} />
+      <CreateItemForm onCreate={createTask} />
       <Tasks id={id} />
       {/*<FilterButtons id={id} filter={filter} />*/}
     </div>

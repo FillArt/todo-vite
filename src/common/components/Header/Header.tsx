@@ -6,14 +6,13 @@ import MenuIcon from "@mui/icons-material/Menu"
 import { NavButton } from "@/common/components/NavButton/NavButton.ts"
 import Switch from "@mui/material/Switch"
 import AppBar from "@mui/material/AppBar"
-import { changeThemeModeAC } from "@/app/app-slice.ts"
+import { changeThemeModeAC, themeSelector } from "@/app/app-slice.ts"
 import { useAppDispatch } from "@/common/hooks/useAppDispatch.ts"
 import { useAppSelector } from "@/common/hooks/useAppSelector.ts"
-import { selectThemeMode } from "@/features/todolists/model/app-selectors.ts"
 import { getTheme } from "@/common/theme/theme.ts"
 
 export const Header = () => {
-  const themeMode = useAppSelector(selectThemeMode)
+  const themeMode = useAppSelector(themeSelector)
   const theme = getTheme(themeMode)
 
   const dispatch = useAppDispatch()
