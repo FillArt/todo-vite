@@ -1,4 +1,3 @@
-import { createAsyncThunk } from "@reduxjs/toolkit"
 import { Filter } from "@/app/App.tsx"
 import { TodoListApi } from "@/features/todolists/api/todolistsApi.types.ts"
 import { todolistsApi } from "@/features/todolists/api/todolistsApi.ts"

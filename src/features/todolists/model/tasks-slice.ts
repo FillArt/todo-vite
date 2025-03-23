@@ -23,7 +23,6 @@ export const tasksSlice = createAppSlice({
       async (todolistId: string, thunkAPI) => {
         try {
           const res = await tasksApi.getTasks(todolistId)
-          console.log(res.data.items, "Это шняга происходит в fetchTasksTC")
           return { todolistId, tasks: res.data.items }
         } catch (error) {
           return thunkAPI.rejectWithValue(null)

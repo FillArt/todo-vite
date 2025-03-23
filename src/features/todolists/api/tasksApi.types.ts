@@ -10,3 +10,15 @@ export type BaseTask = {
   deadline: null
   addedDate: string
 }
+
+export type DomainTask = {
+  error: string | null
+  items: BaseTask[]
+  totalCount: number
+}
+
+export type CreateTask = {
+  data: {
+    item: BaseTask
+  }
+}
