@@ -8,7 +8,7 @@ import { useEffect } from "react"
 
 export const Main = () => {
   const dispath = useAppDispatch()
-  const createTodolistHandler = (title: string) => dispath(createTodolistsTC(title))
+  const createTodolistHandler = (title: string) => dispath(createTodolistsTC({ title }))
 
   useEffect(() => {
     dispath(fetchTodolistsTC())
